@@ -1,0 +1,43 @@
+{% extends "chlonnik/base.html" %}
+{% load staticfiles %}
+
+{% block assets %}
+  {% include "chlonnik/main_assets.html" %}
+{% endblock %}
+
+{% block content %} 
+ <div id='container'>
+  <div id='interface'>
+	  <!--<img src='{% static 'chlonnik/logo.png' %}' id="logo" alt="Przenica">-->
+    <img src='{% static 'chlonnik/logo.svg' %}' id="logo" alt="Przenica" onerror="this.onerror=null; this.src='{% static 'chlonnik/logo.png' %}'">
+    <h2>...działa bez kawy.</h2>
+    <div id='app-info'>wersja 0.1.4, &copy; 2014-2015 SzMR</div>
+
+    <nav id='menu'>
+     <button id='main-button' class='pure-button'>Sprawdź tekst!</button>
+     <button id='second-button' class='pure-button' style='display:none'>Zobacz statystykę</button>
+     </a>
+    <div id='wd-search' style='display:none' class="base-wd-search">
+      <form class='pure-form' onsubmit='return false;'><input id='wd-search-input' class='pure-input-rounded mousetrap' placeholder='Znajdź słowo/fragment...'></form>
+    </div>
+    </nav>
+  </div>
+
+  <textarea id='text-input' class='mousetrap' cols=50 rows=20 placeholder='Wklej tutaj tekst do analizy i wciśnij &bdquo;Sprawdź tekst&rdquo; (albo ctrl+średnik).'></textarea>
+
+  <div id='text-results' style='display:none'></div>
+
+  <footer>
+   <div id="footer-links">☛ dowiedz się więcej o aplikacji:<ul>
+    <li><a href='/help/'>pomoc</a></li>
+    <li><a href='/blog/'>blog</a></li>
+    <li><a href='mailto:szymon@szymonrutkowski.pl'>mail do autora</a></li>
+   </ul></div>
+  </footer>
+ </div>
+
+ <div id='bottom-bar' style='display:none'>
+  <span id='bt-info'></span>&nbsp;&nbsp;&nbsp;
+  <span id='bt-diagram' style='display:none'></span>
+ </div>
+{% endblock %}

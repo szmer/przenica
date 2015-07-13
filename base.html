@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <title>przenica, system przenikający język{% if title %} | {{ title }}{% endif %}</title>
+  <meta name="description" content="Przenica pozwala lepiej analizować i redagować teksty użytkowe, literackie i naukowe. Dzięki temu bezpłatnemu narzędziu, działającemu wprost w przeglądarce, unikniesz najgorszych błędów i zyskasz uznanie czytelników." />
+  <meta name="author" content="Szymon Rutkowski" />
+  {% block assets  %}
+  {% endblock %}
+
+<script type="text/javascript">
+var sc_project=10198896; 
+var sc_invisible=1; 
+var sc_security="3eea5598"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="shopify
+analytics ecommerce" href="http://statcounter.com/shopify/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10198896/0/3eea5598/1/"
+alt="shopify analytics ecommerce"></a></div></noscript>
+
+<style>
+#cookies-warning { background-color: #fcfafa; font-family: sans-serif; font-size: 0.9em;
+                   text-align: center; padding: 0.1em; padding-bottom: 0.5em; margin: 0 auto;
+                   border-bottom: 0.5em solid #f0f0f0; overflow: hidden }
+
+</style>
+  {% load compress %}{% compress js %}
+<script type="text/javascript">
+  addLoadEvent( function() {
+    if(document.cookie.indexOf('warned=true') != -1)
+      document.getElementById('cookies-warning').style.display = 'none'
+  } ) // +addLoadEvent
+  hideCookiesWarning = function() {
+    var date = new Date()
+    date.setTime(date.getTime()+(30*24*60*60*1000))
+    document.cookie = 'warned=true; expires='+date.toGMTString()+'; path=/'
+
+    cookieFrame = 0
+    for(var i = 1; i < 4; i++)
+      window.setTimeout(function() {
+                         document.getElementById('cookies-warning').style.height = (6-cookieFrame++*2)+'em'
+                                   }, 50*i)
+    document.getElementById('cookies-warning').style.border = '0px'
+    document.getElementById('cookies-warning').style.padding = '0px'
+
+    window.setTimeout(function() {
+                         document.getElementById('cookies-warning').style.display = 'none'
+                                   }, 200)
+  } // hideCookiesWarning function
+</script>
+ {% endcompress %}
+</head>
+
+<body>
+  <div id="cookies-warning"><p>Ta aplikacja stosuje pliki <b>cookies</b> do prowadzenia statystyki odwiedzin. Jeżeli sobie tego nie życzysz, możesz wyłączyć cookies w ustawieniach przeglądarki.
+<a href="javascript:hideCookiesWarning()">Rozumiem, schowaj informację</a></p></div>
+  {% block content %}
+  {% endblock %}
+</body>
+</html>

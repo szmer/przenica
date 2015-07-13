@@ -1,10 +1,10 @@
 function WordSearchHelper_search(phrase) {
   chlonnik.h.oneWord.clearHighlight()
+  if(phrase.length <= 1) // don't search for one character
+    return
+
   var words = phrase.trim().split(' ')
   var index = chlonnik.mainIndex
-
-  if(words[0] == '') // the phrase is empty
-    return
 
   // If the phrase consists of one word, just highlight places where it
   // occurs at least partly.

@@ -1,6 +1,6 @@
 function WordSearchHelper_search(phrase) {
   chlonnik.h.oneWord.clearHighlight()
-  if(phrase.length <= 1) // don't search for one character
+  if(phrase.trim().length <= 1) // don't search for one character
     return
 
   var words = phrase.trim().split(' ')

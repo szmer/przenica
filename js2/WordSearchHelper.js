@@ -19,6 +19,7 @@ function WordSearchHelper_search(phrase) {
                   chlonnik.h.oneWord.phraseAppend(nums[i])
                 chlonnik.h.oneWord.refreshBarPhrase()
                 if(nums.length == 0) return
+                chlonnik.h.oneWord.highlightPhrase(nums[0])
                 chlonnik.h.oneWord.scrollTo(nums[0], false)
                                               }, 'a' )
     return
@@ -67,8 +68,11 @@ function WordSearchHelper_search(phrase) {
       nums[i] -= cache.wordCount-1 // adjust to the position of the 1st word
       if(cache.pool1.indexOf(nums[i]) != -1) { // check whether the previous
                                              // words are in the pool
-        if(!firstOccurence) firstOccurence = nums[i]
-        chlonnik.h.oneWord.highlightPhrase(nums[i], cache.wordCount)
+        if(!firstOccurence) {
+          firstOccurence = nums[i]
+          chlonnik.h.oneWord.startPhrase(nums[i], cache.wordCount)
+        }
+        chlonnik.h.oneWord.phraseAppend(nums[i])
       } // if there is match between the pools
     } // for i < nums.length
     if(!firstOccurence)

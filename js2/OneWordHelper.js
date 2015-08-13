@@ -1,12 +1,12 @@
 function OneWordHelper_clear() {
-  var ids = chlonnik.mainIndex.getNumbers(this.p_currentWord)
-  for(var i = 0; i < ids.length; i++)
-    utl.id( 'w-'+ids[i] ).className = null
+  if(this.phraseLength)
+    for(var i = 0; i < this.locs.length; i++)
+      for(var j = 0; j < this.phraseLength; j++)
+        utl.id( 'w-'+(this.locs[i] + j) ).className = null
+  else
+    for(var i = 0; i < this.locs.length; i++)
+      utl.id('w-'+this.locs[i]).className = null
   this.p_currentWord = ''
-
-  for(var i = 0; i < this.locs.length; i++)
-    for(var j = 0; j < this.phraseLength; j++)
-      utl.id( 'w-'+(this.locs[i] + j) ).className = null
   this.locs = [ ]
   this.selectedID = false
   this.phraseLength = false
@@ -33,7 +33,7 @@ function OneWordHelper_highlightPhrase(mainID) {
   this.showBar(this.locs, mainID)
 } // _highlightPhrase function
 
-function OneWordHelper_phraseAppend(wordID, len) {
+function OneWordHelper_phraseAppend(wordID) {
   this.locs.push(parseInt(wordID))
 } // _phraseAppend function
 
@@ -77,10 +77,10 @@ function OneWordHelper_scrollTo(wordID, fromText) {
   }
   else { // for multi-word phrases
     if(this.selectedID)
-      for(var i = this.selectedID; i < this.phraseLength; i++)
-        utl.id("w-"+i).className = "hl-phrase"
-    for(var i = wordID; i < this.phraseLength; i++)
-      utl.id("w-"+i).className = "hl-phrase hl-main"
+      for(var i = 0; i < this.phraseLength; i++)
+        utl.id("w-"+(this.selectedID+i)).className = "hl-phrase"
+    for(var i = 0; i < this.phraseLength; i++)
+      utl.id("w-"+(wordID+i)).className = "hl-phrase hl-main"
   }
   this.selectedID = wordID
 

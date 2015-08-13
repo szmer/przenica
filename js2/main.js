@@ -16,7 +16,7 @@ chlonnik = {
  barGoTo: function(id) { // used by bottom (searching) bar
     var words = this.h.oneWord
     words.scrollTo(id, false)
-    words.updateBarInfo(1+words.locs.indexOf(id), words.locs.length)
+    words.showBar(id)
  },
  mainButtonHandler: function() {
     switch(chlonnik.mode) {

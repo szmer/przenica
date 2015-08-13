@@ -13,6 +13,11 @@ chlonnik = {
       cache: { },
       intervalID: null
     },
+ barGoTo: function(id) { // used by bottom (searching) bar
+    var words = this.h.oneWord
+    words.scrollTo(id, false)
+    words.updateBarInfo(1+words.locs.indexOf(id), words.locs.length)
+ },
  mainButtonHandler: function() {
     switch(chlonnik.mode) {
      case 'input':

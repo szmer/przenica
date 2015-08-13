@@ -1,7 +1,7 @@
 function TextDisplay_newInput() {
   this.p_rawText = ''
   chlonnik.mainIndex.clear() // drop longer unncessary data from memory
-  chlonnik.h.oneWord.clearHighlight()
+  chlonnik.h.oneWord.clear()
 
   utl.id('text-input').value = ''
   utl.id('text-results').innerHTML = ''

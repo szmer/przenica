@@ -1,5 +1,5 @@
 function WordSearchHelper_search(phrase) {
-  chlonnik.h.oneWord.clearHighlight()
+  chlonnik.h.oneWord.clear()
   if(phrase.trim().length <= 1) // don't search for one character
     return
 
@@ -9,10 +9,16 @@ function WordSearchHelper_search(phrase) {
   // If the phrase consists of one word, just highlight places where it
   // occurs at least partly.
   if(words.length == 1) {
+    var started = false
     index.getNumbers(words[0], function(nums) {
+                if(nums && !started) {
+                  chlonnik.h.oneWord.startPhrase(nums[0], 1)
+                  started = true
+                }
                 for(var i = 0; i < nums.length; i++)
-                  chlonnik.h.oneWord.highlightPhrase(nums[i], 1)
+                  chlonnik.h.oneWord.phraseAppend(nums[i])
                 chlonnik.h.oneWord.refreshBarPhrase()
+                if(nums.length == 0) return
                 chlonnik.h.oneWord.scrollTo(nums[0], false)
                                               }, 'a' )
     return

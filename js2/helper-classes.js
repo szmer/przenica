@@ -1,19 +1,21 @@
 function OneWordHelper() {
 this.p_currentWord = ''
-this.p_phraseLocs = [ ]
+this.locs = [ ]
+this.selectedID = false
 this.p_phraseSelected = -1
-this.p_phraseLength = 0
+this.phraseLength = false
 } // OneWordHelper class function
 // public methods
-OneWordHelper.prototype.clearHighlight = OneWordHelper_clearHighlight
+OneWordHelper.prototype.clear = OneWordHelper_clear
 OneWordHelper.prototype.getCurrentWord = function() { return this.p_currentWord }
 OneWordHelper.prototype.highlight = OneWordHelper_highlight
 OneWordHelper.prototype.highlightPhrase = OneWordHelper_highlightPhrase
 OneWordHelper.prototype.mouseDown = OneWordHelper_mouseDown
+OneWordHelper.prototype.phraseAppend = OneWordHelper_phraseAppend
 OneWordHelper.prototype.refreshBarPhrase = OneWordHelper_refreshBarPhrase
 OneWordHelper.prototype.scrollTo = OneWordHelper_scrollTo
-// private methods
-OneWordHelper.prototype.p_showBar = OneWordHelper_showBar
+OneWordHelper.prototype.showBar = OneWordHelper_showBar
+OneWordHelper.prototype.startPhrase = OneWordHelper_startPhrase
 
 function WordSearchHelper() {
 }

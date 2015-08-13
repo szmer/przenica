@@ -1,0 +1,2 @@
+"private" methods and properties are to be gradually removed, as they make no sense
+there may be perf bottleneck in scrollTo or its showBar call

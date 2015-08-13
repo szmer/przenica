@@ -15,6 +15,8 @@ function OneWordHelper_clear() {
   utl.id('bt-diagram').style.display = 'none'
 } // _clear function
 
+// OneWordHelper_higlight highlights all the occurencies of the word (with given ID
+// as the main one) and shows bottom bar. 
 function OneWordHelper_highlight(word, mainID) {
   this.p_currentWord = word
 
@@ -26,6 +28,8 @@ function OneWordHelper_highlight(word, mainID) {
   this.showBar(this.locs, mainID)
 } // _highlight function
 
+// OneWordHelper_higlight highlights all the occurencies of the phrase (with given
+// starting-ID as the main one) and shows bottom bar. 
 function OneWordHelper_highlightPhrase(mainID) {
   for(var i = 0; i < this.locs.length; i++)
     for(var j = 0; j < this.phraseLength; j++)
@@ -66,6 +70,8 @@ function OneWordHelper_refreshBarPhrase() {
     this.showBar(this.locs, this.selectedID)
 } // _refreshBarPhrase function
 
+// OneWordHelper_scrollTo scrolls to the given ID (assuming it's an occurence of word/phrase which is
+// now selected), main-highlights it and clears possible previous main-highlights.
 function OneWordHelper_scrollTo(wordID, fromText) {
   wordID = parseInt(wordID)
 

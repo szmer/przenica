@@ -65,6 +65,12 @@ function TextDisplay_displayResults() {
             display.showResultsMode()
             utl.id('text-results').innerHTML = cch.resultText
             cch.resultText = null
+
+            for(var i = 1; i < display.pageCount+1; i++) {
+              var pageNum = utl.id('pn-'+i).innerHTML
+              utl.id('pn-'+i).innerHTML = pageNum + " z " + display.pageCount
+            }
+
             chlonnik.mainIndex.p_markDisplayed()
             return true
         } // step function (delays.nextCallback)
@@ -87,7 +93,8 @@ function TextDisplay_formatTextChunk(startpos) {
 
   ret = ""
   if(this.lineOnPage == 0 && this.columnInLine == 0)
-    ret += "<div class='results-page'><div class='page-number'>"+this.pageCount+"</div>"
+    ret += "<div class='results-page'><div class='page-number' id='pn-"+
+           this.pageCount+"'>strona "+this.pageCount+"</div>"
   else
     // For the preceding (supposedly) whitespace.
     this.columnInLine++

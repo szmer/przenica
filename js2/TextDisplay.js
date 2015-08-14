@@ -3,10 +3,11 @@
 function TextDisplay_checkPaging() {
   if(this.columnInLine > 60) {
     this.lineOnPage++
-    this.columnInLine = 0
+    this.columnInLine = this.columnInLine - 60
   }
 
-  if(this.lineOnPage == 30) {
+  if((this.lineOnPage == 30 && this.columnInLine > 50)
+      || this.lineOnPage > 30) {
     this.pageCount++
     this.lineOnPage = 0
     this.columnInLine = 0

@@ -80,10 +80,12 @@ function WordIndex_getNumbers(word, callback, position) {
 
   // Otherwise, treat the string as a fragment of a word.
   this.p_soughtFragm = word
-  if(!position || (position != 's'
-                  && position!= 'e')) // use 'any' position in index entry
-                                      // as default value
+  if(!position) // use 'any' position in index entry
+                // as default value
     position = 'a'
+
+  if(position != 's' && position != 'a' && position != 'e')
+    return console.log('GetNumbers: Bad search direction argument')
 
   chlonnik.delays.nextCallback = function(cache) {
     var stepStart = Date.now()

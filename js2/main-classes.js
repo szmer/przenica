@@ -1,7 +1,17 @@
 function TextDisplay() {
-this.p_rawText = ''
+  this.initialize()
 } // TextDisplay class function
+TextDisplay.prototype.initialize = function() {
+  this.p_rawText = ''
+  this.redRGBFactor = -1 // used when calculating the shade of red.
+  this.wordN = 0
+
+  this.pageCount = 1 
+  this.lineOnPage = 0
+  this.columnInLine = 0
+}
 // public methods
+TextDisplay.prototype.checkPaging = TextDisplay_checkPaging
 TextDisplay.prototype.newInput = TextDisplay_newInput
 TextDisplay.prototype.processInput = TextDisplay_processInput
 TextDisplay.prototype.progress = TextDisplay_progress
@@ -9,7 +19,8 @@ TextDisplay.prototype.showInputMode = TextDisplay_showInputMode
 TextDisplay.prototype.showPending = TextDisplay_showPending
 TextDisplay.prototype.showResultsMode = TextDisplay_showResultsMode
 // private methods
-TextDisplay.prototype.p_displayResults = TextDisplay_displayResults
+TextDisplay.prototype.displayResults = TextDisplay_displayResults
+TextDisplay.prototype.formatTextChunk = TextDisplay_formatTextChunk
 
 function WordIndex() {
 this.isDisplayed = false

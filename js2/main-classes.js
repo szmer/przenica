@@ -9,12 +9,15 @@ TextDisplay.prototype.initialize = function() {
   this.pageCount = 1 
   this.lineOnPage = 0
   this.columnInLine = 0
+
+  this.currentPage = 1
 }
 // public methods
 TextDisplay.prototype.checkPaging = TextDisplay_checkPaging
 TextDisplay.prototype.newInput = TextDisplay_newInput
 TextDisplay.prototype.processInput = TextDisplay_processInput
 TextDisplay.prototype.progress = TextDisplay_progress
+TextDisplay.prototype.setPage = TextDisplay_setPage
 TextDisplay.prototype.showInputMode = TextDisplay_showInputMode
 TextDisplay.prototype.showPending = TextDisplay_showPending
 TextDisplay.prototype.showResultsMode = TextDisplay_showResultsMode

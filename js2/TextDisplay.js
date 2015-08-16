@@ -41,6 +41,13 @@ function TextDisplay_progress(fract) {
   utl.id('main-button').innerHTML = Math.floor(fract*100) + '%'
 }
 
+function TextDisplay_setPage(num) {
+  if(utl.id("pgl-"+this.currentPage))
+    utl.id("pgl-"+this.currentPage).className = ''
+  utl.id("pgl-"+num).className = 'current-pg'
+  this.currentPage = num
+} // _setPage(num)
+
 function TextDisplay_displayResults() {
   var display = this
   var wait = function() {
@@ -66,19 +73,33 @@ function TextDisplay_displayResults() {
           
             display.showResultsMode()
 
-            var stats = "<div id='results-stats'><h2>Statystyka dokumentu</h2><table>"+
+            var stats = "<div id='results-stats'><h2>Statystyka dokumentu</h2><table><tbody>"+
                         "<tr><th>Liczba znaków</th><td>"+display.p_rawText.length+"</td></tr>"+
                         "<tr><th>Liczba słów</th><td>"+chlonnik.mainIndex.getWordCount()+"</td></tr>"+
                         "<tr><th>(nie licząc powtórzeń)</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
-                        "</table></div>"
+                        "</tbody></table></div>"
+            var paging = "<div id='paging'>"
+            for(var i = 0; i < 10; i++) {
+              if(i == 0) {
+                var j = 10
+                paging += "&nbsp;&nbsp;&nbsp;"
+              }
+              else
+                var j = 0
+              for(; (j+i) < display.pageCount+1; j+=10)
+                paging += "<a id='pgl-"+(i+j)+"' href='#pg-"+(i+j)+"'>"+(i+j)+"</a> "
+              paging += "<br>"
+            }
+            paging += "</div>"
 
-            utl.id('text-results').innerHTML = stats+cch.resultText
+            utl.id('text-results').innerHTML = stats+cch.resultText+paging
             cch.resultText = null
 
             for(var i = 1; i < display.pageCount+1; i++) {
               var pageNum = utl.id('pn-'+i).innerHTML
               utl.id('pn-'+i).innerHTML = pageNum + " z " + display.pageCount
             }
+            utl.id('pgl-1').className = 'current-pg'
 
             chlonnik.mainIndex.p_markDisplayed()
             return true

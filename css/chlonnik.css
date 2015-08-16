@@ -133,6 +133,17 @@ nav a { text-decoration: none }
   text-decoration: none;
   border-bottom: thin dashed #111;
 }
+#paging {
+  position: fixed;
+  top: 3.5em;
+  left: 1.5em;
+  font-family: sans-serif;
+  font-size: 0.87em;
+}
+#paging a { color: #ececff; text-decoration: none }
+#paging:hover a { color: #6666c0; }
+#paging .current-pg { color: #7b7bbc }
+#paging:hover .current-pg { color: #d46443 }
 
 .highlight, .hl-phrase {
   background-color: #D2E269;

@@ -57,6 +57,15 @@ chlonnik = {
         if(chlonnik.mode == 'results') // clean low-red optimization (see above)
           utl.id('main-button').innerHTML = 'Inny/Kolejna wersja'
       } // elsei if
+
+      // Set current page (from the center of screen).
+      var ctrElem = document.elementFromPoint(document.documentElement.clientWidth/2,
+                                              document.documentElement.clientHeight/2)
+      while(ctrElem.id) {
+        if(ctrElem.id.substr(0,3) == 'pg-')
+          chlonnik.textDisplay.setPage(parseInt(ctrElem.id.substr(3)))
+        ctrElem = ctrElem.parentNode
+      } // while ctrElem.id
   } // scrollHandler
 } // chlonnik object
 

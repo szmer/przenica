@@ -25,7 +25,7 @@ function OneWordHelper_highlight(word, mainID) {
     utl.id( 'w-'+this.locs[i] ).className = 'highlight'
   } // for i in this.locs
 
-  this.showBar(this.locs, mainID)
+  this.showBar(mainID)
 } // _highlight function
 
 // OneWordHelper_higlight highlights all the occurencies of the phrase (with given

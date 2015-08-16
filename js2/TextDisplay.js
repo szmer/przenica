@@ -18,6 +18,8 @@ function TextDisplay_checkPaging() {
 } // _checkPaging()
 
 function TextDisplay_newInput() {
+  chlonnik.h.oneWord.clear()
+
   this.initialize()
 
   chlonnik.mainIndex.clear() // drop not longer needed data from the memory
@@ -63,7 +65,14 @@ function TextDisplay_displayResults() {
             } // for characters in raw text
           
             display.showResultsMode()
-            utl.id('text-results').innerHTML = cch.resultText
+
+            var stats = "<div id='results-stats'><h2>Statystyka dokumentu</h2><table>"+
+                        "<tr><th>Liczba znaków</th><td>"+display.p_rawText.length+"</td></tr>"+
+                        "<tr><th>Liczba słów</th><td>"+chlonnik.mainIndex.getWordCount()+"</td></tr>"+
+                        "<tr><th>(nie licząc powtórzeń)</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
+                        "</table></div>"
+
+            utl.id('text-results').innerHTML = stats+cch.resultText
             cch.resultText = null
 
             for(var i = 1; i < display.pageCount+1; i++) {
@@ -93,7 +102,7 @@ function TextDisplay_formatTextChunk(startpos) {
 
   ret = ""
   if(this.lineOnPage == 0 && this.columnInLine == 0)
-    ret += "<div class='results-page'><div class='page-number' id='pn-"+
+    ret += "<div class='results-page' id='pg-"+this.pageCount+"'><div class='page-number' id='pn-"+
            this.pageCount+"'>strona "+this.pageCount+"</div>"
   else
     // For the preceding (supposedly) whitespace.

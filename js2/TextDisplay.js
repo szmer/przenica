@@ -77,6 +77,8 @@ function TextDisplay_displayResults() {
                         "<tr><th>Liczba znaków</th><td>"+display.p_rawText.length+"</td></tr>"+
                         "<tr><th>Liczba słów</th><td>"+chlonnik.mainIndex.getWordCount()+"</td></tr>"+
                         "<tr><th>(nie licząc powtórzeń)</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
+                        "<tr><th>Liczba stron <a id='reflow-link' href='javascript:chlonnik.reflowDialog()'>(zmień)</a></th>"+
+                            "<td id='page-count'>"+display.pageCount+"</td></tr>"+
                         "</tbody></table></div>"
             var paging = "<div id='paging'>"
             for(var i = 0; i < 10; i++) {

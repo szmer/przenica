@@ -111,6 +111,11 @@ nav a { text-decoration: none }
   padding: 0.4em;
   text-align: center;
 }
+#results-stats a {
+  text-decoration: none;
+  color: #7b7bbc; 
+}
+#new-page-count { width: 3em }
 .results-page {
   background-color: #EFEDED;
   border: thin solid #D0D0F2;

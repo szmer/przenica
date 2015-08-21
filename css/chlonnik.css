@@ -134,7 +134,7 @@ nav a { text-decoration: none }
   font-family: sans-serif;
   font-size: 0.77em;
 }
-.results-page > u {
+.results-page u {
   text-decoration: none;
   border-bottom: thin dashed #111;
 }

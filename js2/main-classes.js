@@ -5,6 +5,8 @@ TextDisplay.prototype.initialize = function() {
   this.p_rawText = ''
   this.redRGBFactor = -1 // used when calculating the shade of red.
   this.wordN = 0
+  this.pgRows = 30 // defaults, supposedly as on typewriter paper
+  this.pgCols = 60
 
   this.pageCount = 1 
   this.lineOnPage = 0
@@ -13,10 +15,14 @@ TextDisplay.prototype.initialize = function() {
   this.currentPage = 1
 }
 // public methods
+TextDisplay.prototype.addPageCounts = TextDisplay_addPageCounts
 TextDisplay.prototype.checkPaging = TextDisplay_checkPaging
 TextDisplay.prototype.newInput = TextDisplay_newInput
+TextDisplay.prototype.pageStartCode = TextDisplay_pageStartCode
+TextDisplay.prototype.pagingCode = TextDisplay_pagingCode
 TextDisplay.prototype.processInput = TextDisplay_processInput
 TextDisplay.prototype.progress = TextDisplay_progress
+TextDisplay.prototype.reflow = TextDisplay_reflow
 TextDisplay.prototype.setPage = TextDisplay_setPage
 TextDisplay.prototype.showInputMode = TextDisplay_showInputMode
 TextDisplay.prototype.showPending = TextDisplay_showPending
@@ -35,6 +41,7 @@ this.p_wordIDIndex = { } // word => array of occurencies (ids)
 this.p_wordPosIndex = { } // as above, occurencies => positions in original string
 this.p_wordIDKeys = [ ] // wordIDIndex.keys(), for delaying iteration
 
+this.charCount = 0
 this.p_wordCount = 0
 this.p_wordDiversity = 0
 

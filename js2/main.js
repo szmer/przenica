@@ -32,15 +32,23 @@ chlonnik = {
     } // switch
   }, // mainButtonHandler
   reflowDialog: function() {
-    utl.id('page-count').innerHTML = '<input id="new-page-count" value="'+chlonnik.textDisplay.pageCount+'">'+
+    utl.id('page-count').innerHTML = '<input id="new-page-count" value="'+this.textDisplay.pageCount+'">'+
                                      ' <a href="javascript:chlonnik.reflowOK()">(zatwierdź)</a>'
     utl.id('reflow-link').blur()
     utl.id('reflow-link').style.display = 'none'
   },
   reflowOK: function() {
     var newNum = utl.id('new-page-count').value
-    utl.id('page-count').innerHTML = newNum
-    utl.id('reflow-link').style.display = 'inline'
+    if(this.textDisplay.reflow(newNum)) {
+      utl.id('page-count').innerHTML = '...' // work in progress indication, to
+                                             // be updated by the reflow func
+      utl.id('reflow-link').style.display = 'inline'
+    }
+    else {
+      utl.id('page-count').innerHTML = this.textDisplay.pageCount
+      utl.id('reflow-link').style.display = 'inline'
+      utl.log('Couldn\'t reflow text to '+newNum+' pages')
+    }
   },
   scrollHandler: function() {
       var docHeight = document.body.offsetHeight || window.document.documentElement.scrollHeight

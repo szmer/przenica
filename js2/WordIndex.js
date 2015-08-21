@@ -37,6 +37,7 @@ function WordIndex_absorb(text) {
         index.p_insert(cch.word, cch.startPos, cch.i)
         cch.word = cch.strInit
       } // if word isn't empty
+      index.charCount = text.length
       index.isIndexed = true
       return true
     } // step function (chlonnik.delays.nextCallback)
@@ -180,7 +181,7 @@ function WordIndex_normalize(word) {
   if(!word)
     return ''
 
-  var word = word.substr(0, 1).toLowerCase() + word.substr(1)
+  var word = word.toLowerCase()
 
   return word
 } // function WordIndex_normalize

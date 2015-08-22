@@ -14,8 +14,8 @@ function TextDisplay_checkPaging() {
     //this.columnInLine = this.columnInLine - this.pgCols
   }
 
-  if((this.lineOnPage == this.pgRows && this.columnInLine > this.pgCols * 0.8)
-      || this.lineOnPage > this.pgRows) {
+  if((this.lineOnPage == this.pgRows+1 && this.columnInLine > this.pgCols * 0.8)
+      || this.lineOnPage > this.pgRows+1) {
     this.pageCount++
     this.lineOnPage = 0
     this.columnInLine = 0
@@ -131,8 +131,7 @@ function TextDisplay_formatTextChunk(startpos) {
     }
     else {
       this.columnInLine++
-
-      if    (this.checkPaging()) {
+      if (this.checkPaging()) {
         // Include all non-whitespace chars in the present page
         var ch = this.p_rawText[startpos]
         while(!ch.match(/^\s*$/)) {
@@ -140,19 +139,18 @@ function TextDisplay_formatTextChunk(startpos) {
           ret += ch
           ch = this.p_rawText[startpos]
         }
-        while(ch == ' ') { // trim spaces too
-          startpos++
-          ch = this.p_rawText[startpos]
-        }
         return {'html': ret+'</div>', 'continue_from': startpos}
       } // if this.checkPaging()
 
       return {'html': ret+this.p_rawText[startpos], 'continue_from': startpos}
     }
-  }
+  } // if non-word: index.getEndPos(startpos)
           
   var word = this.p_rawText.substr(startpos, (index.getEndPos(startpos)-startpos+1))
-  var frequency = index.getPositions(word).length || index.getNumbers(word).length
+  if(!index.isDisplayed)
+    var frequency = index.getPositions(word).length 
+  else
+    var frequency = index.getNumbers(word).length
   var red = frequency * this.redRGBFactor
   if(red > 255)   red = 255
   // var other = 64 // Math.ceil(red / 4)
@@ -205,7 +203,7 @@ function TextDisplay_pagingCode() {
 }
 
 function TextDisplay_reflow(pgCount) {
-  var chCount = chlonnik.mainIndex.charCount
+  var chCount = (1 + 1/pgCount) * chlonnik.mainIndex.charCount
 
   if(pgCount == 0 || pgCount > chCount / 10)
     return false
@@ -215,14 +213,19 @@ function TextDisplay_reflow(pgCount) {
   else
     var guessCharsPerPage = chCount / (pgCount - 1)
 
-  // Columns should be twice as many as rows, so we're looking for a such that a*2a = chars_per_page.
-  this.pgRows = Math.floor(Math.sqrt(guessCharsPerPage / 2))
-  this.pgCols = this.pgRows * 2
+  // Columns should be twice as many as rows, so we're looking for 'a'
+  // such that a*2a = chars_per_page.
+  var rows = Math.floor(Math.sqrt(guessCharsPerPage / 2))
+  this.pgCols = rows * 2
+  // Correction for the additional newlines.
+  this.pgRows = rows + Math.ceil(( this.p_rawText.split('\n').length
+                                  / (chCount / rows*this.pgCols)))
 
   // Re-initialize the counters.
   this.lineOnPage = 0
   this.columnInLine = 0
   this.pageCount = 1
+  this.wordN = 0
 
   this.displayResults()
   

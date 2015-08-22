@@ -40,8 +40,7 @@ chlonnik = {
   reflowOK: function() {
     var newNum = utl.id('new-page-count').value
     if(this.textDisplay.reflow(newNum)) {
-      utl.id('page-count').innerHTML = '...' // work in progress indication, to
-                                             // be updated by the reflow func
+      // leave page to be updated by the display func
       utl.id('reflow-link').style.display = 'inline'
     }
     else {

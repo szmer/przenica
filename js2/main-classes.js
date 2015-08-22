@@ -3,6 +3,7 @@ function TextDisplay() {
 } // TextDisplay class function
 TextDisplay.prototype.initialize = function() {
   this.p_rawText = ''
+
   this.redRGBFactor = -1 // used when calculating the shade of red.
   this.wordN = 0
   this.pgRows = 30 // defaults, supposedly as on typewriter paper
@@ -32,6 +33,9 @@ TextDisplay.prototype.displayResults = TextDisplay_displayResults
 TextDisplay.prototype.formatTextChunk = TextDisplay_formatTextChunk
 
 function WordIndex() {
+  this.initialize()
+}
+WordIndex.prototype.initialize = function() {
 this.isDisplayed = false
 this.isIndexed = false
 
@@ -46,6 +50,7 @@ this.p_wordCount = 0
 this.p_wordDiversity = 0
 
 this.p_soughtFragm = ''
+this.repeatedNearly = [] // word-ids
 } // WordIndex class function
 // public methods
 WordIndex.prototype.absorb = WordIndex_absorb

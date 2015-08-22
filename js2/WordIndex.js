@@ -53,12 +53,7 @@ function WordIndex_absorb(text) {
 } // WordIndex_absorb function
 
 function WordIndex_clear() {
-  this.p_posIndex = { }
-  this.p_wordIDIndex = { }
-  this.p_wordCount = 0
-  this.p_wordDiversity = 0
-  this.isIndexed = false
-  this.isDisplayed = false
+  this.initialize()
 }
 
 function WordIndex_clearPosIndex() {
@@ -157,6 +152,12 @@ function WordIndex_insertID(word, occurence, id) {
 } // WordIndex_insertID function
 
 function WordIndex_isRepeatedNearly(word, pos, dist) {
+  if(this.isDisplayed) {
+    if(this.repeatedNearly.indexOf(pos) > 0)
+      return true
+    return false
+  }
+
   var positions = this.getPositions(this.p_normalize(word))
   if(!positions) {
     utl.log('Can\'t find word in index: ' + word)
@@ -168,6 +169,7 @@ function WordIndex_isRepeatedNearly(word, pos, dist) {
        && ((ind+1) == positions.length || (positions[ind+1] - pos) > dist)
        ) )
      return false
+  this.repeatedNearly.push(pos)
   return true
 } // WordIndex_isRepeatedNearly
 

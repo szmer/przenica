@@ -77,13 +77,36 @@ chlonnik = {
       } // elsei if
 
       // Set current page (from the center of screen).
-      var ctrElem = document.elementFromPoint(document.documentElement.clientWidth/2,
-                                              document.documentElement.clientHeight/2)
-      while(ctrElem.id) {
-        if(ctrElem.id.substr(0,3) == 'pg-')
-          chlonnik.textDisplay.setPage(parseInt(ctrElem.id.substr(3)))
-        ctrElem = ctrElem.parentNode
-      } // while ctrElem.id
+      var pixel = {x: document.documentElement.clientWidth/2, y: document.documentElement.clientHeight/2}
+      var currScroll = window.pageYOffset || document.documentElement.scrollTop
+      while(true) {
+        //if(currScroll != window.pageYOffset || document.documentElement.scrollTop) // give up if something changed
+        //  return
+        var ctrElem = document.elementFromPoint(pixel.x, pixel.y)
+        if(ctrElem.nodeName == "SPAN") { // calculating position is possible
+          var pages = utl.id('results-pages')
+          var guessPage = Math.floor(chlonnik.textDisplay.pageCount
+                                    * (ctrElem.offsetTop - pages.offsetTop) / pages.offsetHeight)
+          var ok = false
+          for(var i = 0; i < 5; i++) {
+            if(utl.id('pn-'+guessPage).offsetTop > ctrElem.offsetTop) {
+              guessPage--
+              continue
+            }
+            if(utl.id('pn-'+(guessPage+1)).offsetTop < ctrElem.offsetTop) {
+              guessPage++
+              continue
+            }
+            ok = true
+            break
+          }
+          if(ok)
+            chlonnik.textDisplay.setPage(guessPage)
+          return
+        }
+        pixel.x = pixel.x + Math.random() * 60 - 30
+        pixel.y = pixel.y + Math.random() * 60 - 30
+      } // while true
   } // scrollHandler
 } // chlonnik object
 

@@ -126,7 +126,7 @@ function TextDisplay_formatTextChunk(startpos) {
       this.lineOnPage++
       this.columnInLine = 0
       if(this.checkPaging())
-        return {'html': ret+'</div>', 'continue_from': startpos}
+        return {'html': ret, 'continue_from': startpos}
       return {'html': ret+'<br>', 'continue_from': startpos}
     }
     else {
@@ -139,7 +139,7 @@ function TextDisplay_formatTextChunk(startpos) {
           ret += ch
           ch = this.p_rawText[startpos]
         }
-        return {'html': ret+'</div>', 'continue_from': startpos}
+        return {'html': ret, 'continue_from': startpos}
       } // if this.checkPaging()
 
       return {'html': ret+this.p_rawText[startpos], 'continue_from': startpos}
@@ -175,15 +175,17 @@ function TextDisplay_formatTextChunk(startpos) {
       ch = this.p_rawText[startpos]
     }
     startpos-- // return to this whitespace next time
-    html += "</div>"
   }
 
   return {'html': ret+html, 'continue_from': startpos }
 } // _formatTextChunk(chunk)
 
 function TextDisplay_pageStartCode(num) {
- return "<div class='results-page' id='pg-"+num+"'><div class='page-number' id='pn-"+
-           num+"'>strona "+num+"</div>"
+  if(this.pageCount == 1)
+    var ret = "<div class='first-page-start' id='pg-1'>&nbsp;</div>"
+  else
+    var ret = "<div class='page-break' id='pg-"+num+"'>&nbsp;</div>"
+  return ret + "<div class='page-number' id='pn-"+num+"'>strona "+num+"</div>"
 }
 
 function TextDisplay_pagingCode() {
@@ -230,68 +232,6 @@ function TextDisplay_reflow(pgCount) {
   this.displayResults()
   
   return true
-/*
-  // Re-initialize the counters.
-  this.lineOnPage = 0
-  this.columnInLine = 0
-  var oldPageCount = this.pageCount
-  this.pageCount = 1
-
-  var newText = ''
-
-  chlonnik.delays.cache = { }
-  chlonnik.delays.nextCallback = function() {
-    var stepStart = Date.now()
-    var cch = this.cache
-    var display = chlonnik.textDisplay
-    if(!cch.i)
-      cch.i = 1
-    for(; cch.i < oldPageCount+1; cch.i++) {
-      if((Date.now() - stepStart) > chlonnik.delays.timeout) {
-        window.setTimeout(function() { chlonnik.delays.nextCallback(chlonnik.delays.cache) }, chlonnik.delays.delay)
-        return false
-      } // if timeout'ed
-      var pg = utl.id('pg-'+cch.i)
-      pg.removeChild(utl.id('pn-'+cch.i))
-      //var pnt = 1
-
-      var pnt = 0
-      while(pnt+1 < pg.innerHTML.length) { // while on OLD page
-      //while(pnt < pg.innerHTML.length) { // while on OLD page
-        if(display.lineOnPage == 0 && display.columnInLine == 0) // begin NEW page
-          newText += display.pageStartCode(display.pageCount)
-        var nextPnt = pg.innerHTML.indexOf('<span', pnt+1) // +1 to avoid keeping finding 
-                                                           // the same occurence
-        //var nextPnt = pg.innerHTML.indexOf('<span', pnt)
-
-        if(!nextPnt)
-          utl.log('Bad pointer when reflowing page '+cch.i)
-        else if(nextPnt < 0)
-          nextPnt = pg.innerHTML.length-1
-
-        var chunk = pg.innerHTML.substr(pnt, nextPnt-pnt)
-        //var chunk = pg.innerHTML.substr(pnt-1, nextPnt-pnt+1)
-        newText += chunk 
-        var dummyDiv = utl.create('div')
-        dummyDiv.innerHTML = chunk
-        display.columnInLine += dummyDiv.textContent.length
-
-        if(display.checkPaging()) // end NEW page?
-          newText += '</div>'
-        pnt = nextPnt
-        //pnt = nextPnt + 1
-      } // while pointer doesn't exceed page boundary
-    } // for displayed pages
-
-    utl.id('results-pages').innerHTML = newText
-    display.addPageCounts()
-    utl.id('paging').innerHTML = display.pagingCode()
-    utl.id('pgl-1').className = 'current-pg'
-    utl.id('page-count').innerHTML = display.pageCount
-    return true
-  } // chlonnik.delays.nextCallback
-  chlonnik.delays.nextCallback()
-  return true*/
 } // _reflow(pgCount)
 
 function TextDisplay_showInputMode() {

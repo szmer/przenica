@@ -79,7 +79,7 @@ chlonnik = {
       // Set current page (from the center of screen).
       var pixel = {x: document.documentElement.clientWidth/2, y: document.documentElement.clientHeight/2}
       var currScroll = window.pageYOffset || document.documentElement.scrollTop
-      while(true) {
+      for(var i = 0; i < 5; i++) {
         //if(currScroll != window.pageYOffset || document.documentElement.scrollTop) // give up if something changed
         //  return
         var ctrElem = document.elementFromPoint(pixel.x, pixel.y)
@@ -87,13 +87,16 @@ chlonnik = {
           var pages = utl.id('results-pages')
           var guessPage = Math.floor(chlonnik.textDisplay.pageCount
                                     * (ctrElem.offsetTop - pages.offsetTop) / pages.offsetHeight)
+          if(guessPage > chlonnik.textDisplay.pageCount)
+            guessPage = chlonnik.textDisplay.pageCount
           var ok = false
-          for(var i = 0; i < 5; i++) {
+          for(var j = 0; j < 5; j++) {
             if(utl.id('pn-'+guessPage).offsetTop > ctrElem.offsetTop) {
               guessPage--
               continue
             }
-            if(utl.id('pn-'+(guessPage+1)).offsetTop < ctrElem.offsetTop) {
+            if(guessPage < chlonnik.textDisplay.pageCount
+               && utl.id('pn-'+(guessPage+1)).offsetTop < ctrElem.offsetTop) {
               guessPage++
               continue
             }

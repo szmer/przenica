@@ -8,17 +8,14 @@ function TextDisplay_addPageCounts() {
 // TextDisplay_checkPaging checks whether to start new page. If it started a new page,
 // returns true, and false otherwise.
 function TextDisplay_checkPaging() {
-  if(this.columnInLine > this.pgCols) {
+  if(this.columnInLine > this.pgCols+1) {
     this.lineOnPage++
-    this.columnInLine = 0
-    //this.columnInLine = this.columnInLine - this.pgCols
+    this.columnInLine = this.columnInLine - this.pgCols
   }
 
-  if((this.lineOnPage == this.pgRows+1 && this.columnInLine > this.pgCols * 0.8)
-      || this.lineOnPage > this.pgRows+1) {
+  if(this.lineOnPage > this.pgRows+1) {
     this.pageCount++
     this.lineOnPage = 0
-    this.columnInLine = 0
     return true
   }
 
@@ -78,6 +75,8 @@ function TextDisplay_displayResults() {
               // Skip the remaining chars in the word.
               cch.i = f.continue_from
             } // for characters in raw text
+            if(!display.rowsTotal)
+              display.rowsTotal = display.lineOnPage + display.pgRows * (display.pageCount-1)
           
             display.showResultsMode()
 
@@ -95,6 +94,7 @@ function TextDisplay_displayResults() {
 
             display.addPageCounts()
             utl.id('pgl-1').className = 'current-pg'
+            display.currentPage = 1
 
             chlonnik.mainIndex.p_markDisplayed()
             return true
@@ -117,33 +117,21 @@ function TextDisplay_formatTextChunk(startpos) {
   var index = chlonnik.mainIndex
 
   ret = ""
-  if(this.lineOnPage == 0 && this.columnInLine == 0)
-    ret += this.pageStartCode(this.pageCount) 
+  this.checkPaging()
+  if(this.pageDisplayed != this.pageCount) {
+    this.pageDisplayed = this.pageCount
+    ret += this.pageStartCode(this.pageCount)
+  }
 
   // Handle numbers, punctuation etc.
   if(! index.getEndPos(startpos)) { // falsey value = non-word data
     if(this.p_rawText[startpos] == '\n') {
       this.lineOnPage++
       this.columnInLine = 0
-      if(this.checkPaging())
-        return {'html': ret, 'continue_from': startpos}
-      return {'html': ret+'<br>', 'continue_from': startpos}
+      return {'html': ret+this.p_rawText[startpos]+"<br>", 'continue_from': startpos}
     }
-    else {
-      this.columnInLine++
-      if (this.checkPaging()) {
-        // Include all non-whitespace chars in the present page
-        var ch = this.p_rawText[startpos]
-        while(!ch.match(/^\s*$/)) {
-          startpos++
-          ret += ch
-          ch = this.p_rawText[startpos]
-        }
-        return {'html': ret, 'continue_from': startpos}
-      } // if this.checkPaging()
-
-      return {'html': ret+this.p_rawText[startpos], 'continue_from': startpos}
-    }
+    this.columnInLine++
+    return {'html': ret+this.p_rawText[startpos], 'continue_from': startpos}
   } // if non-word: index.getEndPos(startpos)
           
   var word = this.p_rawText.substr(startpos, (index.getEndPos(startpos)-startpos+1))
@@ -166,16 +154,6 @@ function TextDisplay_formatTextChunk(startpos) {
   this.wordN++
   this.columnInLine += word.length
   startpos = index.getEndPos(startpos)
-
-  if(this.checkPaging()) {
-    ch = this.p_rawText[++startpos]
-    while(!ch.match(/^\s*$/)) {
-      html += ch
-      startpos++
-      ch = this.p_rawText[startpos]
-    }
-    startpos-- // return to this whitespace next time
-  }
 
   return {'html': ret+html, 'continue_from': startpos }
 } // _formatTextChunk(chunk)
@@ -205,29 +183,16 @@ function TextDisplay_pagingCode() {
 }
 
 function TextDisplay_reflow(pgCount) {
-  var chCount = (1 + 1/pgCount) * chlonnik.mainIndex.charCount
-
-  if(pgCount == 0 || pgCount > chCount / 10)
-    return false
-
-  if(pgCount == 1)
-    var guessCharsPerPage = chCount
-  else
-    var guessCharsPerPage = chCount / (pgCount - 1)
-
-  // Columns should be twice as many as rows, so we're looking for 'a'
-  // such that a*2a = chars_per_page.
-  var rows = Math.floor(Math.sqrt(guessCharsPerPage / 2))
-  this.pgCols = rows * 2
-  // Correction for the additional newlines.
-  this.pgRows = rows + Math.ceil(( this.p_rawText.split('\n').length
-                                  / (chCount / rows*this.pgCols)))
+  var rows = this.rowsTotal / pgCount
+  this.pgRows = Math.round(rows)
+  //this.pgCols = this.initPgCols + ((rows-this.pgRows)/this.pageCount*this.initPgCols)
 
   // Re-initialize the counters.
   this.lineOnPage = 0
   this.columnInLine = 0
   this.pageCount = 1
   this.wordN = 0
+  this.pageDisplayed = 0
 
   this.displayResults()
   

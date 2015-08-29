@@ -6,12 +6,15 @@ TextDisplay.prototype.initialize = function() {
 
   this.redRGBFactor = -1 // used when calculating the shade of red.
   this.wordN = 0
-  this.pgRows = 30 // defaults, supposedly as on typewriter paper
-  this.pgCols = 60
+  this.pgRows = 1800 // defaults, supposedly as on typewriter paper
+  this.initPgCols = 1
+  this.pgCols = 1
+  this.rowsTotal = false // this value will be recorded once, for reflowing the pages
 
   this.pageCount = 1 
   this.lineOnPage = 0
   this.columnInLine = 0
+  this.pageDisplayed = 0 // last page for which starting HTML code was added
 
   this.currentPage = 1
 }

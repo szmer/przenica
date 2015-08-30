@@ -37,8 +37,10 @@ alt="shopify analytics ecommerce"></a></div></noscript>
 
   <script src='js2/sitewide.js'></script>
   <script src='js2/mousetrap.js'></script>
+  <script src='js2/jszip.min.js'></script>
   <script src='js2/utils.js'></script>
 
+  <script src='js2/FileHelper.js'></script>
   <script src='js2/OneWordHelper.js'></script>
   <script src='js2/WordSearchHelper.js'></script>
   <script src='js2/TextDisplay.js'></script>
@@ -60,9 +62,15 @@ alt="shopify analytics ecommerce"></a></div></noscript>
     <div id='app-info'>wersja 0.1.4, &copy; 2014-2015 SzMR</div>
 
     <nav id='menu'>
-     <button id='main-button' class='pure-button'>Sprawdź tekst!</button>
-     <button id='second-button' class='pure-button' style='display:none'>Zobacz statystykę</button>
-     </a>
+     <button id='main-button' class='pure-button pure-button-primary'>Sprawdź tekst!</button>
+    <script>
+     if(window.File && window.FileList && window.FileReader) 
+       document.write("<button id='file-button' class='pure-button' onclick='chlonnik.fileButtonHandler()'>Wgraj z dysku</button>")
+    </script>
+    <div id='load-file-area' style='display:none'><form id='load-file-form'>
+      <input id='load-file' type="file">
+      <div id='load-file-error' style='display:none'></div>
+    </form></div>
     <div id='wd-search' style='display:none' class="base-wd-search">
       <form class='pure-form' onsubmit='return false;'><input id='wd-search-input' class='pure-input-rounded mousetrap' placeholder='Znajdź słowo/fragment...'></form>
     </div>

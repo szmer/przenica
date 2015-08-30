@@ -46,11 +46,30 @@ nav {
 }
 nav a { text-decoration: none }
 .pure-button {
-  background-color: #68BEE2;
-  color: #fff;
   font-family: sans-serif;
   font-size: 120%;
   padding: 0.85em 1.2em;
+  background-color: #F3F3F3;
+  color: #76A4C6;
+}
+.pure-button-primary {
+  background-color: #68BEE2;
+  color: #fff;
+}
+#load-file-area {
+  margin-top: 0.5em;
+  padding: 0.5em;
+  background-color: #FCFAFA;
+  color: #76A4C6;
+  line-height: 110%;
+}
+#load-file {
+  margin-bottom: 0.5em;
+}
+#load-file-error {
+  color: #E00027;
+  font-style: normal;
+  font-weight: normal;
 }
 .sticky-menu {
   background-color: #f9f9f9;

@@ -1,3 +1,7 @@
+function FileHelper() { }
+FileHelper.prototype.blow = FileHelper_blow
+FileHelper.prototype.feedDocx = FileHelper_feedDocx
+
 function OneWordHelper() {
 this.p_currentWord = ''
 this.locs = [ ]

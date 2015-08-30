@@ -1,5 +1,6 @@
 chlonnik = {
   h : {
+      file: new FileHelper(),
       oneWord: new OneWordHelper(),
       wordSearch: new WordSearchHelper()
     },
@@ -7,7 +8,7 @@ chlonnik = {
   mainIndex: new WordIndex(),
   mode: 'input',
   delays : { // to be used when function splits a long process into steps
-      delay : 50,
+      delay : 20,
       timeout : 100,
       nextCallback: null,
       cache: { },
@@ -17,6 +18,29 @@ chlonnik = {
     var words = this.h.oneWord
     words.scrollTo(id, false)
     words.showBar(id)
+ },
+ fileButtonHandler: function() {
+   if(utl.id('load-file-area').style.display == 'none') {
+     utl.id('file-button').innerHTML = 'Zrezygnuj z wgrania'
+     utl.id('load-file-area').style.display = 'block'
+   }
+   else {
+     utl.id('file-button').innerHTML = 'Wgraj z dysku'
+     utl.id('load-file-area').style.display = 'none'
+     utl.id('load-file-error').style.display = 'none'
+     utl.id('load-file-error').innerHTML = ''
+   }
+ },
+ loadFileHandler: function(event) {
+   if(!event.target.files.length)
+     return
+   var f = event.target.files[0]
+   // Validate MIME file type.
+   if(f.type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') 
+     return chlonnik.f.file.blow('Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!')
+   var fread = new FileReader()
+   fread.onload = function(event) { chlonnik.h.file.feedDocx(event.target.result) }
+   fread.readAsBinaryString(f)
  },
  mainButtonHandler: function() {
     switch(chlonnik.mode) {
@@ -78,10 +102,7 @@ chlonnik = {
 
       // Set current page (from the center of screen).
       var pixel = {x: document.documentElement.clientWidth/2, y: document.documentElement.clientHeight/2}
-      var currScroll = window.pageYOffset || document.documentElement.scrollTop
       for(var i = 0; i < 5; i++) {
-        //if(currScroll != window.pageYOffset || document.documentElement.scrollTop) // give up if something changed
-        //  return
         var ctrElem = document.elementFromPoint(pixel.x, pixel.y)
         if(ctrElem.nodeName == "SPAN") { // calculating position is possible
           var pages = utl.id('results-pages')
@@ -127,6 +148,7 @@ addLoadEvent( function() {
             chlonnik.h.oneWord.mouseDown(event)
         }
 
+  utl.id('load-file').addEventListener('change', chlonnik.loadFileHandler, false)
   utl.id('wd-search-input').onkeyup = function(event) { chlonnik.h.wordSearch.search(utl.id('wd-search-input').value) }
 
   window.onscroll = function() { window.setTimeout(chlonnik.scrollHandler, 500) }

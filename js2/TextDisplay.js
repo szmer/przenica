@@ -8,17 +8,11 @@ function TextDisplay_addPageCounts() {
 // TextDisplay_checkPaging checks whether to start new page. If it started a new page,
 // returns true, and false otherwise.
 function TextDisplay_checkPaging() {
-  if(this.columnInLine > this.pgCols+1) {
-    this.lineOnPage++
-    this.columnInLine = this.columnInLine - this.pgCols
-  }
-
-  if(this.lineOnPage > this.pgRows+1) {
+  if(this.charOnPage > this.pgChars) { 
     this.pageCount++
-    this.lineOnPage = 0
+    this.charOnPage -= this.pgChars
     return true
   }
-
   return false
 } // _checkPaging()
 
@@ -75,8 +69,6 @@ function TextDisplay_displayResults() {
               // Skip the remaining chars in the word.
               cch.i = f.continue_from
             } // for characters in raw text
-            if(!display.rowsTotal)
-              display.rowsTotal = display.lineOnPage + display.pgRows * (display.pageCount-1)
           
             display.showResultsMode()
 
@@ -126,11 +118,10 @@ function TextDisplay_formatTextChunk(startpos) {
   // Handle numbers, punctuation etc.
   if(! index.getEndPos(startpos)) { // falsey value = non-word data
     if(this.p_rawText[startpos] == '\n') {
-      this.lineOnPage++
-      this.columnInLine = 0
+      this.charOnPage++
       return {'html': ret+this.p_rawText[startpos]+"<br>", 'continue_from': startpos}
     }
-    this.columnInLine++
+    this.charOnPage++
     return {'html': ret+this.p_rawText[startpos], 'continue_from': startpos}
   } // if non-word: index.getEndPos(startpos)
           
@@ -152,7 +143,7 @@ function TextDisplay_formatTextChunk(startpos) {
   if(!index.isDisplayed)
     index.p_insertID(word, index.getPositions(word).indexOf(startpos), this.wordN)
   this.wordN++
-  this.columnInLine += word.length
+  this.charOnPage += word.length
   startpos = index.getEndPos(startpos)
 
   return {'html': ret+html, 'continue_from': startpos }
@@ -183,16 +174,12 @@ function TextDisplay_pagingCode() {
 }
 
 function TextDisplay_reflow(pgCount) {
-  var rows = this.rowsTotal / pgCount
-  this.pgRows = Math.round(rows)
-  //this.pgCols = this.initPgCols + ((rows-this.pgRows)/this.pageCount*this.initPgCols)
+  this.pgChars = chlonnik.mainIndex.charCount / pgCount
 
   // Re-initialize the counters.
-  this.lineOnPage = 0
-  this.columnInLine = 0
+  this.charOnPage = 0
   this.pageCount = 1
   this.wordN = 0
-  this.pageDisplayed = 0
 
   this.displayResults()
   

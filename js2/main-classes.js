@@ -45,6 +45,7 @@ this.p_wordPosIndex = { } // as above, occurencies => positions in original stri
 this.p_wordIDKeys = [ ] // wordIDIndex.keys(), for delaying iteration
 
 this.charCount = 0
+this.lineBreaksCount = 0
 this.p_wordCount = 0
 this.p_wordDiversity = 0
 

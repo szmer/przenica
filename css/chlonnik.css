@@ -57,20 +57,27 @@ nav a { text-decoration: none }
   color: #fff;
 }
 #load-file-area {
-  margin-top: 0.5em;
   padding: 0.5em;
   background-color: #FCFAFA;
   color: #76A4C6;
-  line-height: 110%;
-}
-#load-file {
-  margin-bottom: 0.5em;
-}
-#load-file-error {
-  color: #E00027;
+  line-height: 120%;
   font-style: normal;
   font-weight: normal;
 }
+#load-file-form > input { color: #000 }
+#load-file-form {
+  margin: 0.5em;
+}
+label > input {
+  position: relative;
+  top: 0.3em;
+}
+label { color: #000 }
+#load-file-error {
+  color: #E00027;
+  margin: 0.5em
+}
+
 .sticky-menu {
   background-color: #f9f9f9;
   background: rgba(249, 249, 249, 0.87);
@@ -83,7 +90,6 @@ nav a { text-decoration: none }
   text-align: right;
   z-index: 10;
 }
-
 .base-wd-search { padding-top: 0.8em; }
 .sticky-wd-search {
   position: absolute;

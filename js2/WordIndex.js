@@ -12,7 +12,7 @@ function WordIndex_absorb(text) {
         var chr = text.charAt(cch.i)
         var chrCode = chr.charCodeAt(0)
         // Skip over non-word characters.
-        if(   chr != '\'' // compare this condition list with an ASCII chart
+        if(   chr != '\'' // other than alphabetic chars
            && chr != '-'
            && (   chrCode < 65
                || (chrCode > 90 && chrCode < 97)
@@ -21,7 +21,9 @@ function WordIndex_absorb(text) {
               ) // &&
           ) { // (end of if condition)
     
-          if(cch.word != cch.strInit) {
+          if(chr == '\n')
+            index.lineBreaksCount++
+          if(cch.word != cch.strInit) { // word boundary
             index.p_insert(cch.word, cch.startPos, cch.i-1)
             cch.word = cch.strInit
           } // if word isn't empty

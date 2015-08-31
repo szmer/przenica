@@ -37,7 +37,7 @@ chlonnik = {
    var f = event.target.files[0]
    // Validate MIME file type.
    if(f.type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') 
-     return chlonnik.f.file.blow('Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!')
+     return chlonnik.h.file.blow('Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!')
    var fread = new FileReader()
    fread.onload = function(event) { chlonnik.h.file.feedDocx(event.target.result) }
    fread.readAsBinaryString(f)

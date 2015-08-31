@@ -23,6 +23,7 @@ chlonnik = {
    if(utl.id('load-file-area').style.display == 'none') {
      utl.id('file-button').innerHTML = 'Zrezygnuj z wgrania'
      utl.id('load-file-area').style.display = 'block'
+     chlonnik.h.file.clearFileInput()
    }
    else {
      utl.id('file-button').innerHTML = 'Wgraj z dysku'

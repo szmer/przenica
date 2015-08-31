@@ -1,5 +1,5 @@
 function FileHelper_blow(errmsg) {
-  utl.id('load-file-form').reset()
+  this.clearFileInput()
   utl.id('load-file-error').style.display = 'block'
   utl.id('load-file-error').innerHTML = errmsg
   // Let's do some flickering, so the user will notice.
@@ -8,6 +8,15 @@ function FileHelper_blow(errmsg) {
   window.setTimeout(function() { utl.id('load-file-error').style.visibility = 'hidden' }, 600)
   window.setTimeout(function() { utl.id('load-file-error').style.visibility = 'visible' }, 800)
 }
+
+function FileHelper_clearFileInput() {
+  var inp = utl.id('load-file')
+  inp.value = ''
+  if(inp.value) {
+    inp.type = 'text'
+    inp.type = 'file'
+  }
+} // _clearFileInput()
 
 function FileHelper_feedDocx(data) {
   var zip = new JSZip()

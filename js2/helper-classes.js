@@ -1,5 +1,6 @@
 function FileHelper() { }
 FileHelper.prototype.blow = FileHelper_blow
+FileHelper.prototype.clearFileInput = FileHelper_clearFileInput
 FileHelper.prototype.feedDocx = FileHelper_feedDocx
 
 function OneWordHelper() {

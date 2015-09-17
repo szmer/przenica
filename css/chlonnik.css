@@ -4,7 +4,7 @@ body {
   font-size: 0.8em;
 }
 #container {
-  width: 41em;
+  width: 70em;
   margin: 0 auto;
   padding-top: 0.5em;
   max-width: 100%;
@@ -16,21 +16,21 @@ body {
   font-family: sans-serif;
   font-style: italic;
   font-weight: lighter;
+  width: 75%;
+  margin: auto;
 }
 h2 {
   color: #7777cf;
   font-style: normal;
   font-family: sans-serif;
   letter-spacing: 0.05em;
-  font-size: 1.12em;
+  font-size: 1.52em;
   font-weight: lighter;
   padding: 0.03em 0 0.5em 0.4em;
   margin: 0em;
 }
 #logo {
-  width: 120%;
-  position: relative;
-  left: -10%;
+  width: 100%;
 }
 #app-info {
   font-size: 0.8em;
@@ -101,24 +101,28 @@ label { color: #000 }
   padding: 0.3em 1em;
 }
 
+#main-area {
+  width: 50em;
+  max-width: 100%;
+  margin: auto;
+}
 #text-input, #text-results {
+  width: 100%;
   font-family: serif;
   line-height: 1.45;
   text-align: justify;
-  width: 39em;
-  max-width: 100%;
   padding: 0.5em;
   overflow: auto;
-  margin: 0 auto;
+  margin: 0;
 }
 #text-input {
-  font-size: 1em;
+  font-size: 1.3em;
   border: thin solid #D0D0F2;
   height: 25em;
   background-color: #FCFAFA;
 }
 #text-results {
-  font-size: 1.2em;
+  font-size: 1.55em;
   margin-left: -5%;
   padding-bottom: 1.7em;
 }
@@ -134,7 +138,7 @@ label { color: #000 }
 .first-page-start, .page-break {
   background-color: #fff; 
   float: left;
-  width: 40.5em;
+  width:50.5em;
   height: 2em;
   position: relative;
   left: -2.5em;
@@ -182,12 +186,17 @@ label { color: #000 }
   top: 4.5em;
   left: 4em;
   font-family: sans-serif;
-  font-size: 0.87em;
+  font-size: 1.1em;
 }
 #paging a { color: #ececff; text-decoration: none }
 #paging:hover a { color: #6666c0; }
-#paging .current-pg { color: #7b7bbc }
-#paging:hover .current-pg { color: #d46443 }
+#paging .current-pg {
+  color: #7b7bbc;
+  font-weight: bold;
+}
+#paging:hover .current-pg {
+  color: #d46443;
+}
 
 .highlight, .hl-phrase {
   background-color: #D2E269;

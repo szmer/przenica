@@ -103,10 +103,14 @@ chlonnik = {
 
       // Set current page (from the center of screen).
       var pixel = {x: document.documentElement.clientWidth/2, y: document.documentElement.clientHeight/2}
+      var pages = utl.id('results-pages')
       for(var i = 0; i < 5; i++) {
         var ctrElem = document.elementFromPoint(pixel.x, pixel.y)
+	if(ctrElem.offsetTop < pages.offsetTop) { // elements of interfaces on top of the page
+          chlonnik.textDisplay.setPage(1)
+	  break
+	}
         if(ctrElem.nodeName == "SPAN") { // calculating position is possible
-          var pages = utl.id('results-pages')
           var guessPage = Math.floor(chlonnik.textDisplay.pageCount
                                     * (ctrElem.offsetTop - pages.offsetTop) / pages.offsetHeight)
           if(guessPage > chlonnik.textDisplay.pageCount)

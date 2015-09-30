@@ -22,6 +22,7 @@ target="_blank"><img class="statcounter"
 src="http://c.statcounter.com/10198896/0/3eea5598/1/"
 alt="shopify analytics ecommerce"></a></div></noscript>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <style>
 #cookies-warning { background-color: #fcfafa; font-family: sans-serif; font-size: 0.9em;
                    text-align: center; padding: 0.1em; padding-bottom: 0.5em; margin: 0 auto;
@@ -34,8 +35,9 @@ alt="shopify analytics ecommerce"></a></div></noscript>
   <div id="cookies-warning"><p>Ta aplikacja stosuje pliki <b>cookies</b> do prowadzenia statystyki odwiedzin. Jeżeli sobie tego nie życzysz, możesz wyłączyć cookies w ustawieniach przeglądarki.
 <a href="javascript:hideCookiesWarning()">Rozumiem, schowaj informację</a></p></div>
 
+  <script src='js/inc/mousetrap.js'></script>
+  <script src='js/inc/jszip.min.js'></script>
   <script src='js/app.js'></script>
-
  <link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.5.0/buttons-min.css'>
  <link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.5.0/forms-min.css'>
  <link rel='stylesheet' href='css/chlonnik.css'>
@@ -46,25 +48,32 @@ alt="shopify analytics ecommerce"></a></div></noscript>
   <div id='interface'>
     <img src='img/logo.svg' id="logo" alt="Przenica" onerror="this.onerror=null; this.src='img/logo.png'">
     <h2>...działa bez kawy.</h2>
-    <div id='app-info'>wersja 0.1.4, &copy; 2014-2015 SzMR</div>
+    <div id='app-info'>wersja 0.2, &copy; 2014-2015 SzMR</div>
 
     <nav id='menu'>
-     <button id='main-button' class='pure-button'>Sprawdź tekst!</button>
-     <button id='second-button' class='pure-button' style='display:none'>Zobacz statystykę</button>
-     </a>
+     <button id='main-button' class='pure-button pure-button-primary'>Sprawdź tekst!</button>
+    <script>
+     if(window.File && window.FileList && window.FileReader) 
+       document.write("<button id='file-button' class='pure-button' onclick='chlonnik.fileButtonHandler()'>Wgraj z dysku</button>")
+    </script>
+    <div id='load-file-area' style='display:none'><form id='load-file-form'>
+      <input id='load-file' type="file">
+      <label><input id='load-notes' type="checkbox" checked='checked' value='load-notes'> Wczytaj przypisy (jeśli są)</label>
+      <div id='load-file-error' style='display:none'></div>
+    </form></div>
     <div id='wd-search' style='display:none' class="base-wd-search">
       <form class='pure-form' onsubmit='return false;'><input id='wd-search-input' class='pure-input-rounded mousetrap' placeholder='Znajdź słowo/fragment...'></form>
     </div>
     </nav>
   </div>
 
-  <textarea id='text-input' class='mousetrap' cols=50 rows=20 placeholder='Wklej tutaj tekst do analizy i wciśnij &bdquo;Sprawdź tekst&rdquo; (albo ctrl+średnik).'></textarea>
-
-  <div id='text-results' style='display:none'></div>
+  <div id="main-area">
+    <textarea id='text-input' class='mousetrap' cols=50 rows=20 placeholder='Wklej tutaj tekst do analizy i wciśnij &bdquo;Sprawdź tekst&rdquo; (albo ctrl+średnik).'></textarea>
+    <div id='text-results' style='display:none'></div>
+  </div>
 
   <footer>
    <div id="footer-links">☛ dowiedz się więcej o aplikacji:<ul>
-    <li><a href='/help/'>pomoc</a></li>
     <li><a href='/blog/'>blog</a></li>
     <li><a href='mailto:szymon@szymonrutkowski.pl'>mail do autora</a></li>
    </ul></div>

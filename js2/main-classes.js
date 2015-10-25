@@ -56,7 +56,11 @@ this.repeatedNearly = [] // word-ids
 WordIndex.prototype.absorb = WordIndex_absorb
 WordIndex.prototype.clear = WordIndex_clear
  // ! .getNumbers() should be used if this.isDisplayed, .getPositions() otherwise.
-WordIndex.prototype.getEndPos = function(n) { return (this.p_posIndex[n] || false) }
+WordIndex.prototype.getEndPos = function(n) {
+  if(this.p_posIndex[n] === undefined)
+    return false
+  return this.p_posIndex[n]
+}
 WordIndex.prototype.getNumbers = WordIndex_getNumbers // gives word-ids instead of positions in the original string
 WordIndex.prototype.getPositions = WordIndex_getPositions
 WordIndex.prototype.getWordCount = function() { return this.p_wordCount }

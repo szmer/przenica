@@ -116,7 +116,7 @@ function TextDisplay_formatTextChunk(startpos) {
   }
 
   // Handle numbers, punctuation etc.
-  if(! index.getEndPos(startpos)) { // falsey value = non-word data
+  if(index.getEndPos(startpos) === false) { // non-word data
     if(this.p_rawText[startpos] == '\n') {
       this.charOnPage += 37
       return {'html': ret+this.p_rawText[startpos]+"<br>", 'continue_from': startpos}

@@ -134,11 +134,10 @@ function TextDisplay_formatTextChunk(startpos) {
   if(red > 255)   red = 255
   // var other = 64 // Math.ceil(red / 4)
   var blue = Math.ceil(176 - 136 * (red / 255))
-  var html = '<span id=w-' + this.wordN + ' style="color: rgb(' + red + ',' + 96 + ',' + blue + ')">'
+  var html = '<span id=w-' + this.wordN + ' style="color: rgb(' + red + ',' + 96 + ',' + blue + ')'
   if(word.length > 1 && index.isRepeatedNearly(word, startpos, 200))
-    html += '<u>' + word + '</u></span>'
-  else
-    html += word + '</span>'
+    html += '; border-bottom: thin dashed #111'
+  html += '">' + word + '</span>'
  
   if(!index.isDisplayed)
     index.p_insertID(word, index.getPositions(word).indexOf(startpos), this.wordN)

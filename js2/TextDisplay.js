@@ -158,14 +158,20 @@ function TextDisplay_pageStartCode(num) {
 
 function TextDisplay_pagingCode() {
   var paging = ''
-  for(var i = 0; i < 10; i++) {
+
+  // print all tens, then 10n+1's, 10n+2's etc.
+  var dist = 1
+  if(this.pageCount > 50)
+          dist = this.pageCount / 50
+
+  for(var i = 0; i < 10 * dist; i = Math.floor(i + dist)) {
     if(i == 0) {
-      var j = 10
-      paging += "&nbsp;&nbsp;&nbsp;"
+      var j = Math.floor(10*dist)
+      paging += "&nbsp;&nbsp;&nbsp;" // instead of 0th page link
     }
     else
       var j = 0
-    for(; (j+i) < this.pageCount+1; j+=10)
+    for(; (j+i) < this.pageCount+1; j += Math.floor(10*dist)) 
       paging += "<a id='pgl-"+(i+j)+"' href='#pg-"+(i+j)+"'>"+(i+j)+"</a> "
     paging += "<br>"
   }

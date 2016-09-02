@@ -45,6 +45,14 @@ nav {
   text-align: center;
 }
 nav a { text-decoration: none }
+#tutorial {
+  color: #b6b6f0;
+  font-size: 1.25em;
+  font-family: sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: underline;
+}
 .pure-button {
   font-family: sans-serif;
   font-size: 120%;

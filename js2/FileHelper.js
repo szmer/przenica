@@ -22,14 +22,14 @@ function FileHelper_feedDocx(data) {
   var zip = new JSZip()
   try { zip.load(data) }
   catch(err) { 
-    return this.blow('Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod msw1)')
+    return this.blow(lang.dict()['Err_msw1'])
   }
 
   // Find the main document part.
   var rels = utl.create('div', { innerHTML: zip.files['_rels/.rels'].asText() })
   rels = rels.getElementsByTagName('Relationship')
   if(!rels)
-    return this.blow('Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod msw2)')
+    return this.blow(lang.dict()['Err_msw2'])
   var doc = false
   for(var i = 0; i < rels.length; i++)
     if(rels[i].getAttribute('Type') == 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument') {
@@ -39,11 +39,11 @@ function FileHelper_feedDocx(data) {
 
   // Load the main document part.
   if(!doc)
-    return this.blow('Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod msw3)')
+    return this.blow(lang.dict()['Err_msw3'])
   var docBody = utl.create('div', { 'innerHTML': zip.files[doc].asText() })
   docBody = docBody.getElementsByTagName("w:body")[0]
   if(!docBody)
-    return this.blow('Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod msw4)')
+    return this.blow(lang.dict()['Err_msw4'])
   docBody.innerHTML = docBody.innerHTML.split('</w:p>').join('\n</w:p>')
   // Handle foot/endnotes references.
   if(utl.id('load-notes').checked) {

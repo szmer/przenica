@@ -1,7 +1,7 @@
 function TextDisplay_addPageCounts() {
   for(var i = 1; i < this.pageCount+1; i++) {
     var pageNum = utl.id('pn-'+i).innerHTML
-    utl.id('pn-'+i).innerHTML = pageNum + " z " + this.pageCount
+    utl.id('pn-'+i).innerHTML = pageNum + ' ' + lang.dict()['of'] + ' ' + this.pageCount
   }
 }
 
@@ -72,11 +72,11 @@ function TextDisplay_displayResults() {
           
             display.showResultsMode()
 
-            var stats = "<div id='results-stats'><h2>Statystyka dokumentu</h2><table><tbody>"+
-                        "<tr><th>Liczba znaków</th><td>"+chlonnik.mainIndex.charCount+"</td></tr>"+
-                        "<tr><th>Liczba słów</th><td>"+chlonnik.mainIndex.getWordCount()+"</td></tr>"+
-                        "<tr><th>(nie licząc powtórzeń)</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
-                        "<tr><th>Liczba stron <a id='reflow-link' href='javascript:chlonnik.reflowDialog()'>(zmień)</a></th>"+
+            var stats = "<div id='results-stats'><h2>"+lang.dict()['Document_stats']+"</h2><table><tbody>"+
+                        "<tr><th>"+lang.dict()['Character_count']+"</th><td>"+chlonnik.mainIndex.charCount+"</td></tr>"+
+                        "<tr><th>"+lang.dict()['Word_count']+"</th><td>"+chlonnik.mainIndex.getWordCount()+"</td></tr>"+
+                        "<tr><th>("+lang.dict()['without_duplicates']+")</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
+                        "<tr><th>"+lang.dict()['Page_count']+" <a id='reflow-link' href='javascript:chlonnik.reflowDialog()'>("+lang.dict()['adjust_pages']+")</a></th>"+
                             "<td id='page-count'>"+display.pageCount+"</td></tr>"+
                         "</tbody></table></div>"
             var paging = '<div id="paging">'+display.pagingCode()+'</div>'
@@ -153,7 +153,7 @@ function TextDisplay_pageStartCode(num) {
     var ret = "<div class='first-page-start' id='pg-1'>&nbsp;</div>"
   else
     var ret = "<div class='page-break' id='pg-"+num+"'>&nbsp;</div>"
-  return ret + "<div class='page-number' id='pn-"+num+"'>strona "+num+"</div>"
+  return ret + "<div class='page-number' id='pn-"+num+"'>"+lang.dict()['page']+" "+num+"</div>"
 }
 
 function TextDisplay_pagingCode() {
@@ -187,18 +187,18 @@ function TextDisplay_reflow(pgCount) {
 
 function TextDisplay_showInputMode() {
   chlonnik.mode = 'input'
-  utl.id('main-button').innerHTML = 'Sprawdź tekst!'
+  utl.id('main-button').innerHTML = lang.dict()['Analyze!']
   utl.id('wd-search').style.display = 'none'
   utl.id('menu').className = '' // remove "stickiness" if present
 }
 
 function TextDisplay_showPending() {
   chlonnik.mode = 'pending'
-  utl.id('main-button').innerHTML = '...'
+  utl.id('main-button').innerHTML = lang.dict()['...']
 }
 
 function TextDisplay_showResultsMode() {
   chlonnik.mode = 'results'
-  utl.id('main-button').innerHTML = 'Inny/Kolejna wersja'
+  utl.id('main-button').innerHTML = lang.dict()['Load_another']
   utl.id('wd-search').style.display = 'block'
 }

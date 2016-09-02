@@ -105,15 +105,15 @@ function OneWordHelper_showBar(mainID) {
   mainID = parseInt(mainID) // selected ID 
   utl.id('bottom-bar').style.display = 'block'
 
-  // Basic information of number of occurencies.
+  // Basic information of number of occurences.
   if(!ids.length) 
-    utl.id('bt-info').innerHTML = 'Brak wystąpień.'
+    utl.id('bt-info').innerHTML = lang.dict()['No_occurrences'] 
   else {
     var here = 1+ids.indexOf(mainID)
     if (here && here > 0)
-      utl.id('bt-info').innerHTML = 'Wystąpienie <b>' + here  +'</b> z ' + ids.length + ':'
+      utl.id('bt-info').innerHTML = lang.dict()['Occurrence']+' <b>' + here  +'</b> '+lang.dict()['of']+' ' + ids.length + ':'
     else
-      utl.id('bt-info').innerHTML = 'Wystąpień: <b>' + ids.length  +'</b>'
+      utl.id('bt-info').innerHTML = lang.dict()['Occurrence_count']+': <b>' + ids.length  +'</b>'
   }
 
   // The diagram with links.

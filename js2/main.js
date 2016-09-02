@@ -21,12 +21,12 @@ chlonnik = {
  },
  fileButtonHandler: function() {
    if(utl.id('load-file-area').style.display == 'none') {
-     utl.id('file-button').innerHTML = 'Zrezygnuj z wgrania'
+     utl.id('file-button').innerHTML = lang.dict()['Abort_upload']
      utl.id('load-file-area').style.display = 'block'
      chlonnik.h.file.clearFileInput()
    }
    else {
-     utl.id('file-button').innerHTML = 'Wgraj z dysku'
+     utl.id('file-button').innerHTML = lang.dict()['Upload_file']
      utl.id('load-file-area').style.display = 'none'
      utl.id('load-file-error').style.display = 'none'
      utl.id('load-file-error').innerHTML = ''
@@ -38,7 +38,7 @@ chlonnik = {
    var f = event.target.files[0]
    // Validate MIME file type.
    if(f.type != 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') 
-     return chlonnik.h.file.blow('Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!')
+     return chlonnik.h.file.blow(lang.dict()['Docx_only'])
    var fread = new FileReader()
    fread.onload = function(event) { chlonnik.h.file.feedDocx(event.target.result) }
    fread.readAsBinaryString(f)
@@ -58,7 +58,7 @@ chlonnik = {
   }, // mainButtonHandler
   reflowDialog: function() {
     utl.id('page-count').innerHTML = '<input id="new-page-count" value="'+this.textDisplay.pageCount+'">'+
-                                     ' <a href="javascript:chlonnik.reflowOK()">(zatwierdź)</a>'
+                                     ' <a href="javascript:chlonnik.reflowOK()">('+lang.dict()['confirm']+')</a>'
     utl.id('reflow-link').blur()
     utl.id('reflow-link').style.display = 'none'
   },
@@ -89,7 +89,7 @@ chlonnik = {
          search.className = 'sticky-wd-search' 
          if(chlonnik.mode == 'results' &&
                  utl.id("main-button").getBoundingClientRect().left < utl.id("wd-search").getBoundingClientRect().right)
-            utl.id("main-button").innerHTML = "usuń"
+            utl.id("main-button").innerHTML = lang.dict()['remove']
       }
 
       else if( (utl.id('text-input').getBoundingClientRect().top > 0
@@ -98,7 +98,7 @@ chlonnik = {
         menu.className = ''
         search.className = 'base-wd-search'
         if(chlonnik.mode == 'results') // clean low-red optimization (see above)
-          utl.id('main-button').innerHTML = 'Inny/Kolejna wersja'
+          utl.id('main-button').innerHTML = lang.dict()['Load_another']
       } // elsei if
 
       // Set current page (from the center of screen).
@@ -143,6 +143,9 @@ chlonnik = {
 addLoadEvent( function() {
 
   Mousetrap.bind(['command+;', 'ctrl+;'], chlonnik.mainButtonHandler)
+
+  utl.id('text-input').placeholder = lang.dict()['app_hint']
+  utl.id('wd-search-input').placeholder = lang.dict()['find_hint']
 
   utl.id('main-button').onclick = chlonnik.mainButtonHandler
 

@@ -10,9 +10,85 @@
 </head>
 
 <body>
+  <script>
+// Load language strings here and use them to render the page.
+lang = {
+        current: 'pl',
+        dict: function() { return lang[lang.current] },
+        fill: function(str) { document.write( lang.dict()[str] ) },
+        en: {
+                'app_slogan': 'Yeah, pʂɛɲitsa. Or pshaneetsa.',
+                'Analyze!': 'Analyze!',
+                'app_hint': 'Paste your text here and press "Analyze!" (or ctrl+semicolon).',
+                'Upload_file': 'Upload file',
+                'Load_another': 'Load another',
+                'Abort_upload': 'Abort the upload',
+                'Load_notes': 'Load footnotes (if applicable)',
+                '...': '...',
+                'find_hint': 'Find a word/phrase...',
+                'page': 'page',
+                'adjust_pages': 'adjust',
+                'confirm': 'confirm',
+                'remove': 'remove',
+                'of': 'of',
+                'Document_stats': 'Document stats',
+                'Character_count': 'Character count',
+                'Word_count': 'Word count',
+                'Page_count': 'Page count',
+                'without_duplicates': 'without duplicates',
+                'Occurrence': 'Occurrence',
+                'Occurrence_count': 'Occurrence count',
+                'No_occurrences': 'No occurrences.',
+                'pages': 'pages',
+                'Docx_only': 'For now, only .docx files are supported!',
+                'Err_msw1': 'Sorry, I failed to read your file! (error code msw1)',
+                'Err_msw2': 'Sorry, I failed to read your file! (error code msw2)',
+                'Err_msw3': 'Sorry, I failed to read your file! (error code msw3)',
+                'Err_msw4': 'Sorry, I failed to read your file! (error code msw4)'
+        },
+        pl: {
+                'app_slogan': '...działa bez kawy.',
+                'Analyze!': 'Sprawdź tekst!',
+                'app_hint': 'Wklej tutaj tekst do analizy i wciśnij "Sprawdź tekst" (albo ctrl+średnik).',
+                'Upload_file': 'Wgraj z dysku',
+                'Load_another': 'Inny/Kolejna wersja',
+                'Abort_upload': 'Zrezygnuj z wgrania',
+                'Load_notes': 'Wczytaj przypisy (jeśli są)',
+                '...': '...',
+                'find_hint': 'Znajdź słowo/fragment...',
+                'page': 'strona',
+                'adjust_pages': 'zmień',
+                'confirm': 'zatwierdź',
+                'remove': 'usuń',
+                'of': 'z',
+                'Document_stats': 'Statystyka dokumentu',
+                'Character_count': 'Liczba znaków',
+                'Word_count': 'Liczba słów',
+                'Page_count': 'Liczba stron',
+                'without_duplicates': 'nie licząc powtórzeń',
+                'Occurrence': 'Wystąpienie',
+                'Occurrence_count': 'Liczba wystąpień',
+                'No_occurrences': 'Brak wystąpień.',
+                'pages': 'strony',
+                'Docx_only': 'Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!',
+                'Err_msw1': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw1)',
+                'Err_msw2': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw2)',
+                'Err_msw3': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw3)',
+                'Err_msw4': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw4)'
+        }
+}
+// Switch to English when it's asked in the GET parameter.
+if(window.location.href.indexOf('lang=en') != -1)
+        lang.current = 'en'
+if(window.location.href.indexOf('lang=pl') != -1)
+        lang.current = 'pl'
+  </script>
+
+
   <script src='js/inc/mousetrap.js'></script>
   <script src='js/inc/jszip.min.js'></script>
   <script src='js/app.js'></script>
+
  <link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.5.0/buttons-min.css'>
  <link rel='stylesheet' href='http://yui.yahooapis.com/pure/0.5.0/forms-min.css'>
  <link rel='stylesheet' href='css/chlonnik.css'>
@@ -22,37 +98,61 @@
  <div id='container'>
   <div id='interface'>
     <img src='img/logo.svg' id="logo" alt="Przenica" onerror="this.onerror=null; this.src='img/logo.png'">
-    <h2>...działa bez kawy.</h2>
-    <div id='app-info'>V. 0.3, &copy; 2014-2016 SzMR</div>
+    <h2>
+            <script>lang.fill('app_slogan')</script>
+    </h2>
+    <div id='app-info'>
+            v. 0.3, &copy; 2014-2016 SzMR
+    </div>
 
     <nav id='menu'>
-     <button id='main-button' class='pure-button pure-button-primary'>Sprawdź tekst!</button>
+     <button id='main-button' class='pure-button pure-button-primary'>
+            <script>lang.fill('Analyze!')</script>
+     </button>
+
     <script>
      if(window.File && window.FileList && window.FileReader) 
-       document.write("<button id='file-button' class='pure-button' onclick='chlonnik.fileButtonHandler()'>Wgraj z dysku</button>")
+       document.write("<button id='file-button' class='pure-button' onclick='chlonnik.fileButtonHandler()'>"+lang.dict()['Upload_file']+"</button>")
     </script>
-     &nbsp;<a id="tutorial" href="https://www.youtube.com/watch?v=7o6-nfmGfPQ">jak używać⇒</a>
+
+    <script>
+        if(lang.current == 'pl') {
+             document.write('&nbsp;<a id="tutorial" href="https://www.youtube.com/watch?v=7o6-nfmGfPQ">jak używać⇒</a>')
+            }
+    </script>
+
     <div id='load-file-area' style='display:none'><form id='load-file-form'>
       <input id='load-file' type="file">
-      <label><input id='load-notes' type="checkbox" checked='checked' value='load-notes'> Wczytaj przypisy (jeśli są)</label>
+      <label><input id='load-notes' type="checkbox" checked='checked' value='load-notes'>
+            <script>lang.fill('Load_notes')</script>
+      </label>
       <div id='load-file-error' style='display:none'></div>
     </form></div>
     <div id='wd-search' style='display:none' class="base-wd-search">
-      <form class='pure-form' onsubmit='return false;'><input id='wd-search-input' class='pure-input-rounded mousetrap' placeholder='Znajdź słowo/fragment...'></form>
+      <form class='pure-form' onsubmit='return false;'><input id='wd-search-input' class='pure-input-rounded mousetrap'></form>
     </div>
     </nav>
   </div>
 
   <div id="main-area">
-    <textarea id='text-input' class='mousetrap' cols=50 rows=20 placeholder='Wklej tutaj tekst do analizy i wciśnij &bdquo;Sprawdź tekst&rdquo; (albo ctrl+średnik).'></textarea>
+    <textarea id='text-input' class='mousetrap' cols=50 rows=20></textarea>
     <div id='text-results' style='display:none'></div>
   </div>
 
   <footer>
-   <div id="footer-links">☛ dowiedz się więcej o aplikacji:<ul>
-    <li><a href='/blog/'>blog</a></li>
-    <li><a href='mailto:szymon@szymonrutkowski.pl'>mail do autora</a></li>
-   </ul></div>
+          <div id="footer-links">
+                  <script>
+                        if(lang.current == 'pl') {
+                               document.write('☛ <a href="?lang=en">in English</a><br>')
+                               document.write(
+                               ' ☛ dowiedz się więcej o aplikacji:<ul><li><a href="/blog/">blog</a></li><li><a href="mailto:szymon@szymonrutkowski.pl">mail do autora</a></li></ul>'
+                               );
+                            }
+                        if(lang.current == 'en') {
+                               document.write('☛ <a href="?lang=pl">po polsku</a><br>')
+                        }
+                  </script>
+          </div>
   </footer>
  </div>
 

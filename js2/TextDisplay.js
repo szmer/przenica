@@ -88,6 +88,8 @@ function TextDisplay_displayResults() {
             utl.id('pgl-1').className = 'current-pg'
             display.currentPage = 1
 
+            utl.id('paging-toggler').onclick = chlonnik.togglePagingHandler
+
             chlonnik.mainIndex.p_markDisplayed()
             return true
         } // step function (delays.nextCallback)
@@ -167,12 +169,12 @@ function TextDisplay_pagingCode() {
   for(var i = 0; i < 10 * dist; i = Math.floor(i + dist)) {
     if(i == 0) {
       var j = Math.floor(10*dist)
-      paging += "&nbsp;&nbsp;&nbsp;" // instead of 0th page link
+      paging += "<span id='paging-toggler'>&#x2397; "+lang.dict()['pages']+"</span>" // instead of 0th page link
     }
     else
       var j = 0
     for(; (j+i) < this.pageCount+1; j += Math.floor(10*dist)) 
-      paging += "<a id='pgl-"+(i+j)+"' href='#pg-"+(i+j)+"'>"+(i+j)+"</a> "
+      paging += "<a id='pgl-"+(i+j)+"' href='#pg-"+(i+j)+"' style='display:none'>"+(i+j)+"</a> "
     paging += "<br>"
   }
   return paging

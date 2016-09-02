@@ -136,7 +136,24 @@ chlonnik = {
         pixel.x = pixel.x + Math.random() * 60 - 30
         pixel.y = pixel.y + Math.random() * 60 - 30
       } // while true
-  } // scrollHandler
+  }, // scrollHandler
+  togglePagingHandler: function() {
+    var pgLinks = utl.id('paging').getElementsByTagName('a')
+
+    if(chlonnik.textDisplay.pagingVisible) {
+      for (var a in pgLinks)
+        pgLinks.item(a).style.display = 'none'
+      utl.id('paging-toggler').innerHTML = '&#x2398;'+lang.dict()['pages']
+      chlonnik.textDisplay.pagingVisible = false
+    }
+
+    else {
+      for (var a in pgLinks)
+        pgLinks.item(a).style.display = 'inline'
+      utl.id('paging-toggler').innerHTML = '&#x2397;'
+      chlonnik.textDisplay.pagingVisible = true
+    } // else (== ! chlonnik.textDisplay.pagingVisible)
+  } // togglePagingHandler
 } // chlonnik object
 
 // Event bindings on initialization.

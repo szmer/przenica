@@ -13,6 +13,8 @@ TextDisplay.prototype.initialize = function() {
   this.pageDisplayed = 0 // last page for which starting HTML code was added
 
   this.currentPage = 1
+
+  this.pagingVisible = false
 }
 // public methods
 TextDisplay.prototype.addPageCounts = TextDisplay_addPageCounts

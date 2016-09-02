@@ -39,6 +39,7 @@ lang = {
                 'Occurrence': 'Occurrence',
                 'Occurrence_count': 'Occurrence count',
                 'No_occurrences': 'No occurrences.',
+                'pages': 'pages',
                 'Docx_only': 'For now, only .docx files are supported!',
                 'Err_msw1': 'Sorry, I failed to read your file! (error code msw1)',
                 'Err_msw2': 'Sorry, I failed to read your file! (error code msw2)',
@@ -68,6 +69,7 @@ lang = {
                 'Occurrence': 'Wystąpienie',
                 'Occurrence_count': 'Liczba wystąpień',
                 'No_occurrences': 'Brak wystąpień.',
+                'pages': 'strony',
                 'Docx_only': 'Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!',
                 'Err_msw1': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw1)',
                 'Err_msw2': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw2)',
@@ -111,7 +113,9 @@ if(window.location.href.indexOf('lang=pl') != -1)
     <h2>
             <script>lang.fill('app_slogan')</script>
     </h2>
-    <div id='app-info'>v. 0.3, &copy; 2014-2016 SzMR</div>
+    <div id='app-info'>
+            v. 0.3, &copy; 2014-2016 SzMR
+    </div>
 
     <nav id='menu'>
      <button id='main-button' class='pure-button pure-button-primary'>
@@ -148,13 +152,19 @@ if(window.location.href.indexOf('lang=pl') != -1)
   </div>
 
   <footer>
-    <script>
-        if(lang.current == 'pl') {
-               document.write(
-                               ' <div id="footer-links">☛ dowiedz się więcej o aplikacji:<ul><li><a href="/blog/">blog</a></li><li><a href="mailto:szymon@szymonrutkowski.pl">mail do autora</a></li></ul></div>'
+          <div id="footer-links">
+                  <script>
+                        if(lang.current == 'pl') {
+                               document.write('☛ <a href="?lang=en">in English</a><br>')
+                               document.write(
+                               ' ☛ dowiedz się więcej o aplikacji:<ul><li><a href="/blog/">blog</a></li><li><a href="mailto:szymon@szymonrutkowski.pl">mail do autora</a></li></ul>'
                                );
-            }
-    </script>
+                            }
+                        if(lang.current == 'en') {
+                               document.write('☛ <a href="?lang=pl">po polsku</a><br>')
+                        }
+                  </script>
+          </div>
   </footer>
  </div>
 

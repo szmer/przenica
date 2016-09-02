@@ -205,6 +205,11 @@ label { color: #000 }
 #paging:hover .current-pg {
   color: #d46443;
 }
+#paging-toggler {
+  font-size: 0.75em;
+  color: #6666c0;
+  cursor: pointer;
+}
 
 .highlight, .hl-phrase {
   background-color: #D2E269;

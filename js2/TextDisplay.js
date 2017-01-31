@@ -78,6 +78,8 @@ function TextDisplay_displayResults() {
                         "<tr><th>("+lang.dict()['without_duplicates']+")</th><td>"+chlonnik.mainIndex.getWordDiversity()+"</td></tr>"+
                         "<tr><th>"+lang.dict()['Page_count']+" <a id='reflow-link' href='javascript:chlonnik.reflowDialog()'>("+lang.dict()['adjust_pages']+")</a></th>"+
                             "<td id='page-count'>"+display.pageCount+"</td></tr>"+
+                        "<tr><th>"+lang.dict()['Paragraph_count']+"</th><td>"+chlonnik.mainIndex.getParagraphCount()+"</td></tr>"+
+                        "<tr><th>"+lang.dict()['Words_per_paragraph']+"</th><td>"+Math.round(chlonnik.mainIndex.getWordCount()/chlonnik.mainIndex.getParagraphCount())+"</td></tr>"+
                         "</tbody></table></div>"
             var paging = '<div id="paging">'+display.pagingCode()+'</div>'
 

@@ -20,9 +20,18 @@ function WordIndex_absorb(text) {
                || chr == '„' || chr == '”'
               ) // &&
           ) { // (end of if condition)
-    
-          if(chr == '\n')
+   
+          // track the new lines and paragraph count (paragraphs can be delimited by many blank spaces) 
+          if(chr == '\n') {
             index.lineBreaksCount++
+            if(!cch.newLinesSeq) {
+              index.paragraphCount++
+              cch.newLinesSeq = true
+            }
+          }
+          else if(chr != ' ' && chr != '\r' && chr != '\n')
+              cch.newLinesSeq = false
+
           if(cch.word != cch.strInit) { // word boundary
             index.p_insert(cch.word, cch.startPos, cch.i-1)
             cch.word = cch.strInit

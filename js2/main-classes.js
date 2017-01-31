@@ -47,6 +47,7 @@ this.p_wordPosIndex = { } // as above, occurencies => positions in original stri
 this.p_wordIDKeys = [ ] // wordIDIndex.keys(), for delaying iteration
 
 this.charCount = 0
+this.paragraphCount = 0
 this.lineBreaksCount = 0
 this.p_wordCount = 0
 this.p_wordDiversity = 0
@@ -67,6 +68,7 @@ WordIndex.prototype.getNumbers = WordIndex_getNumbers // gives word-ids instead 
 WordIndex.prototype.getPositions = WordIndex_getPositions
 WordIndex.prototype.getWordCount = function() { return this.p_wordCount }
 WordIndex.prototype.getWordDiversity = function() { return this.p_wordDiversity }
+WordIndex.prototype.getParagraphCount = function() { return this.paragraphCount }
 WordIndex.prototype.isRepeatedNearly = WordIndex_isRepeatedNearly
 // private methods
 WordIndex.prototype.p_clearPosIndex = WordIndex_clearPosIndex // backdoor for TextDisplay

@@ -47,6 +47,7 @@ chlonnik = {
  mainButtonHandler: function() {
     switch(chlonnik.mode) {
      case 'input':
+      if(utl.id('text-input').value.trim().length == 0) return
       chlonnik.textDisplay.showPending()
       // Force browser not to "optimize out" the indication above (so user won't feel that app "freezed").
       window.setTimeout(function() { chlonnik.textDisplay.processInput() }, 100)

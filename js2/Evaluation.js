@@ -1,6 +1,6 @@
 function setupEvaluationToggler() {
   utl.id('evaluation-toggler').onclick = function() {
-          if (utl.id('evaluation-window').style.display == 'none')
+          if (utl.id('evaluation-window').style.display != 'block')
                 utl.id('evaluation-window').style.display = 'block'
   }
 }
@@ -51,11 +51,50 @@ function updateEvaluation() {
 
   var result = math.eval(funcFormulation, funcVars)
   utl.id('evaluation-score-score').innerHTML = result.toString().replace(/[\]\[]/g, '')
+
+  updateEvaluationChart(result)
+}
+
+function updateEvaluationChart(newScore) {
+  chlonnik.h.scoreHistory.push({ x: new Date(), y: newScore.entries[0] }) // kludge on math.js
+
+  var ctx = utl.id('evaluation-score-chart')
+  var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+          datasets: [{
+              backgroundColor: "#afdde9",
+              borderColor: "#5fbcd3",
+              label: lang.dict()['Evaluation_chart_label'],
+              data: chlonnik.h.scoreHistory
+          }]
+      },
+      options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+                  xAxes: [{
+                          type: 'time',
+                          time: {
+                                  min: chlonnik.h.scoreHistory[0].x,
+                                  max: chlonnik.h.scoreHistory[chlonnik.h.scoreHistory.length-1].x,
+                                  displayFormats: { minute: 'H:mm' },
+                                  unit: 'minute'
+                          } }],
+                  yAxes: [{ ticks: { beginAtZero: true} }] 
+                  }
+      }
+  })
 }
 
 // Setup the evaluation window.
 addLoadEvent( function() {
   utl.id('evaluation-window-close').onclick = function() { utl.id('evaluation-window').style.display = 'none' }
+  utl.id('evaluation-recalculate').onclick = updateEvaluation
+  utl.id('evaluation-reset').onclick = function() {
+                  utl.id('evaluation-function-spec').value = lang.dict()['Evaluation_function_default']
+                  updateEvaluation()
+          }
 
   utl.id('evaluation-window-close').textContent = lang.dict()['window_close']
   utl.id('evaluation-header').textContent = lang.dict()['Evaluation_header']
@@ -63,6 +102,8 @@ addLoadEvent( function() {
   utl.id('evaluation-function-label').textContent = lang.dict()['Evaluation_function']
   utl.id('evaluation-function-spec').textContent = lang.dict()['Evaluation_function_default']
   utl.id('evaluation-function-builtins').textContent = lang.dict()['Evaluation_function_builtins']
+  utl.id('evaluation-recalculate').textContent = lang.dict()['Evaluation_recalculate']
+  utl.id('evaluation-reset').textContent = lang.dict()['Evaluation_reset']
 
   // What follows is mostly copypasta from interact.js docs.
   interact('.draggable').draggable({
@@ -88,7 +129,7 @@ addLoadEvent( function() {
         + (Math.sqrt(event.dx * event.dx +
                      event.dy * event.dy)|0) + 'px')
     }
-  })
+  }).ignoreFrom('textarea')
 } ) // +addLoadEvent
 
 function dragMoveListener (event) {
@@ -96,6 +137,9 @@ function dragMoveListener (event) {
         // keep the dragged position in the data-x/data-y attributes
         x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx,
         y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+
+    if(target.nodeName == 'TEXTAREA') // don't drag on textareas
+        return
 
     // translate the element
     target.style.webkitTransform =

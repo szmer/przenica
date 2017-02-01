@@ -2,7 +2,8 @@ chlonnik = {
   h : {
       file: new FileHelper(),
       oneWord: new OneWordHelper(),
-      wordSearch: new WordSearchHelper()
+      wordSearch: new WordSearchHelper(),
+      scoreHistory: [], // used by Evaluation.js
     },
   textDisplay: new TextDisplay(),
   mainIndex: new WordIndex(),

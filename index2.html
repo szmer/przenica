@@ -58,7 +58,10 @@ lang = {
                 'Evaluation_function_builtins': 'c / character count / (auto)\n'
                         + 'w / word count / (auto)\n'
                         + 'u / unique word count / (auto)\n'
-                        + 'p / paragraph count / (auto)'
+                        + 'p / paragraph count / (auto)',
+                'Evaluation_chart_label': 'Score function',
+                'Evaluation_recalculate': 'recalculate',
+                'Evaluation_reset': 'reset the function'
         },
         pl: {
                 'app_slogan': '...działa bez kawy.',
@@ -102,7 +105,10 @@ lang = {
                 'Evaluation_function_builtins': 'c / liczba znaków / (automatycznie)\n'
                         + 'w / liczba słów / (automatycznie)\n'
                         + 'u / liczba słów, bez powtórzeń / (automatycznie)\n'
-                        + 'p / liczba słów / (automatycznie)'
+                        + 'p / liczba akapitów / (automatycznie)',
+                'Evaluation_chart_label': 'Funkcja oceny',
+                'Evaluation_recalculate': 'przelicz ponownie',
+                'Evaluation_reset': 'przywróć fabryczne'
         }
 }
 // Switch to English when it's asked in the GET parameter.
@@ -118,6 +124,7 @@ if(window.location.href.indexOf('lang=pl') != -1)
   <script src='js2/inc/jszip.min.js'></script>
   <script src='js2/inc/interact.min.js'></script>
   <script src='js2/inc/math.min.js'></script>
+  <script src='js2/inc/Chart.bundle.min.js'></script>
   <script src='js2/utils.js'></script>
 
   <script src='js2/FileHelper.js'></script>
@@ -205,7 +212,12 @@ if(window.location.href.indexOf('lang=pl') != -1)
     <div id='evaluation-score'>
             <span id='evaluation-score-label'></span>
             <span id='evaluation-score-score'>?</span>
+            <canvas id='evaluation-score-chart'></canvas>
     </div> 
+    <div id='evaluation-controls'>
+            <span id='evaluation-recalculate'></span>
+            <span id='evaluation-reset'></span>
+    </div>
     <div id='evaluation-function'>
             <span id='evaluation-function-label'></span>
             <textarea id='evaluation-function-spec' rows="10" cols="60"></textarea>

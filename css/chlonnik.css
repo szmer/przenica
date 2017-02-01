@@ -256,8 +256,9 @@ label { color: #000 }
 
 #evaluation-window {
   position: fixed;
-  top: 4.5em;
-  left: 6em;
+  top: 4em;
+  left: 30%;
+  display: none;
 
   padding: 0.6em;
   border: medium solid #fcfafa;
@@ -271,15 +272,17 @@ label { color: #000 }
 #evaluation-window-close {
   display: inline;
   float: right;
+}
+#evaluation-window-close, #evaluation-controls > span {
   text-decoration: none;
   color: #7b7bbc; /* as results-stats a */
   font-family: sans-serif;
   font-weight: normal;
   cursor: pointer;
 }
-#evaluation-score, #evaluation-function-label {
+#evaluation-score, #evaluation-function {
   font-weight: bold;
-  font-family: sans-serif
+  font-family: sans-serif;
 }
 #evaluation-score-score {
   font-family: sans-serif;
@@ -290,6 +293,17 @@ label { color: #000 }
   display: block;
   font-family: monospace;
   resize: none
+}
+#evaluation-score-chart {
+  display: block;
+  height: 17em;
+  width: 30em;
+}
+#evaluation-controls {
+  text-align: center;
+}
+#evaluation-controls > span {
+  margin: 0.3em 0.5em
 }
 
 footer {

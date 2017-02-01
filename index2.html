@@ -42,11 +42,23 @@ lang = {
                 'Occurrence_count': 'Occurrence count',
                 'No_occurrences': 'No occurrences.',
                 'pages': 'pages',
+                'evaluate': 'evaluate writing',
                 'Docx_only': 'For now, only .docx files are supported!',
                 'Err_msw1': 'Sorry, I failed to read your file! (error code msw1)',
                 'Err_msw2': 'Sorry, I failed to read your file! (error code msw2)',
                 'Err_msw3': 'Sorry, I failed to read your file! (error code msw3)',
-                'Err_msw4': 'Sorry, I failed to read your file! (error code msw4)'
+                'Err_msw4': 'Sorry, I failed to read your file! (error code msw4)',
+                'window_close': '(close)',
+                'Evaluation_header': 'Text evaluation',
+                'Evaluation_score': 'Score:',
+                'Evaluation_function': 'Function:',
+                'Evaluation_function_default': 'c*Top\n####### (meaning of the variables below)\n'
+                        + 'Top / number of topics considered / 3\n'
+                        + 'NameOfYourVar / second column is for description, enter the value in the third / 42',
+                'Evaluation_function_builtins': 'c / character count / (auto)\n'
+                        + 'w / word count / (auto)\n'
+                        + 'u / unique word count / (auto)\n'
+                        + 'p / paragraph count / (auto)'
         },
         pl: {
                 'app_slogan': '...działa bez kawy.',
@@ -74,11 +86,23 @@ lang = {
                 'Occurrence_count': 'Liczba wystąpień',
                 'No_occurrences': 'Brak wystąpień.',
                 'pages': 'strony',
+                'evaluate': 'ulepszaj tekst!',
                 'Docx_only': 'Niestety, Przenica obsługuje w tej chwili tylko pliki .docx!',
                 'Err_msw1': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw1)',
                 'Err_msw2': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw2)',
                 'Err_msw3': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw3)',
-                'Err_msw4': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw4)'
+                'Err_msw4': 'Niestety, twój plik .docx wygląda na nieprawidłowy i Przenica nie może go wczytać. (kod błędu msw4)',
+                'window_close': '(zamknij)',
+                'Evaluation_header': 'Ulepszanie tekstu',
+                'Evaluation_score': 'Ocena:',
+                'Evaluation_function': 'Funkcja oceny:',
+                'Evaluation_function_default': 'c*Tem\n####### (znaczenia zmiennych poniżej)\n'
+                        + 'Tem / liczba poruszonych tematów / 3\n'
+                        + 'TuNazwijZmienną / druga kolumna jest na opis, wprowadź wartość zmiennej w trzeciej / 42',
+                'Evaluation_function_builtins': 'c / liczba znaków / (automatycznie)\n'
+                        + 'w / liczba słów / (automatycznie)\n'
+                        + 'u / liczba słów, bez powtórzeń / (automatycznie)\n'
+                        + 'p / liczba słów / (automatycznie)'
         }
 }
 // Switch to English when it's asked in the GET parameter.
@@ -92,6 +116,8 @@ if(window.location.href.indexOf('lang=pl') != -1)
   <script src='js2/sitewide.js'></script>
   <script src='js2/inc/mousetrap.js'></script>
   <script src='js2/inc/jszip.min.js'></script>
+  <script src='js2/inc/interact.min.js'></script>
+  <script src='js2/inc/math.min.js'></script>
   <script src='js2/utils.js'></script>
 
   <script src='js2/FileHelper.js'></script>
@@ -99,6 +125,7 @@ if(window.location.href.indexOf('lang=pl') != -1)
   <script src='js2/WordSearchHelper.js'></script>
   <script src='js2/TextDisplay.js'></script>
   <script src='js2/WordIndex.js'></script>
+  <script src='js2/Evaluation.js'></script>
 
   <script src='js2/main-classes.js'></script>
   <script src='js2/helper-classes.js'></script>
@@ -172,9 +199,24 @@ if(window.location.href.indexOf('lang=pl') != -1)
   </footer>
  </div>
 
+ <div class='draggable' id='evaluation-window'>
+    <div id='evaluation-window-close'></div>
+    <h2 id='evaluation-header'></h2>
+    <div id='evaluation-score'>
+            <span id='evaluation-score-label'></span>
+            <span id='evaluation-score-score'>?</span>
+    </div> 
+    <div id='evaluation-function'>
+            <span id='evaluation-function-label'></span>
+            <textarea id='evaluation-function-spec' rows="10" cols="60"></textarea>
+            <textarea id='evaluation-function-builtins' rows="4" cols="60" disabled></textarea>
+    </div> 
+ </div>
+
  <div id='bottom-bar' style='display:none'>
   <span id='bt-info'></span>&nbsp;&nbsp;&nbsp;
   <span id='bt-diagram' style='display:none'></span>
  </div>
+
 </body>
 </html>

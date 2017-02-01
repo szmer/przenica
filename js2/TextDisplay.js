@@ -82,13 +82,17 @@ function TextDisplay_displayResults() {
                         "<tr><th>"+lang.dict()['Words_per_paragraph']+"</th><td>"+Math.round(chlonnik.mainIndex.getWordCount()/chlonnik.mainIndex.getParagraphCount())+"</td></tr>"+
                         "</tbody></table></div>"
             var paging = '<div id="paging">'+display.pagingCode()+'</div>'
+            var evaluation = '<div id="evaluation">'+display.evaluationCode()+'</div>'
 
-            utl.id('text-results').innerHTML = paging+stats+'<div id="results-pages">'+cch.resultText+'</div>'
+            utl.id('text-results').innerHTML = "<div id='sidemenu'>"+paging+evaluation+"</div>"+stats+'<div id="results-pages">'+cch.resultText+'</div>'
             cch.resultText = null
 
             display.addPageCounts()
             utl.id('pgl-1').className = 'current-pg'
             display.currentPage = 1
+
+            setupEvaluationToggler()
+            updateEvaluation()
 
             utl.id('paging-toggler').onclick = chlonnik.togglePagingHandler
 
@@ -171,15 +175,23 @@ function TextDisplay_pagingCode() {
   for(var i = 0; i < 10 * dist; i = Math.floor(i + dist)) {
     if(i == 0) {
       var j = Math.floor(10*dist)
-      paging += "<span id='paging-toggler'>&#x2397; "+lang.dict()['pages']+"</span>" // instead of 0th page link
+      paging += "<span id='paging-toggler'>&#x2397; "+lang.dict()['pages']+"&nbsp;</span>" // instead of 0th page link
     }
     else
       var j = 0
+
     for(; (j+i) < this.pageCount+1; j += Math.floor(10*dist)) 
       paging += "<a id='pgl-"+(i+j)+"' href='#pg-"+(i+j)+"' style='display:none'>"+(i+j)+"</a> "
-    paging += "<br>"
+
+    // inject a line break into an anchor, so we can display=none it
+    var lastOpening = paging.length - paging.lastIndexOf("<")
+    paging = paging.substr(0, paging.length-lastOpening) + "<br>" + paging.substr(-lastOpening)
   }
   return paging
+}
+
+function TextDisplay_evaluationCode() {
+  return "<a id='evaluation-toggler'>"+lang.dict()['evaluate']+"</a>"
 }
 
 function TextDisplay_reflow(pgCount) {

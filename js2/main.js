@@ -178,3 +178,5 @@ addLoadEvent( function() {
 
   window.onscroll = function() { window.setTimeout(chlonnik.scrollHandler, 500) }
 } ) // +addLoadEvent
+
+// see also Evaluation.js

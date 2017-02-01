@@ -22,6 +22,7 @@ TextDisplay.prototype.checkPaging = TextDisplay_checkPaging
 TextDisplay.prototype.newInput = TextDisplay_newInput
 TextDisplay.prototype.pageStartCode = TextDisplay_pageStartCode
 TextDisplay.prototype.pagingCode = TextDisplay_pagingCode
+TextDisplay.prototype.evaluationCode = TextDisplay_evaluationCode
 TextDisplay.prototype.processInput = TextDisplay_processInput
 TextDisplay.prototype.progress = TextDisplay_progress
 TextDisplay.prototype.reflow = TextDisplay_reflow
